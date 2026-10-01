@@ -116,6 +116,39 @@ const BENCHMARKS = [
  {n:'Severin',t:'time',td:'—',m:['burpee','run'],x:'10 rounds: 30 burpees, 400 m run'}
 ];
 
+// Omschrijvingen van bekende WOD's; wordt gebruikt om geïmporteerde resultaten
+// zonder omschrijving (lege wodText) alsnog van tekst te voorzien.
+const WOD_TEXTS = {
+  'fran': '21-15-9 thrusters (♂ 42,5 kg / ♀ 30 kg) & pull-ups',
+  'diane': '21-15-9 deadlifts (♂ 100 kg / ♀ 70 kg) & handstand push-ups',
+  'grace': '30 clean & jerks (♂ 60 kg / ♀ 43 kg)',
+  'andi': 'For time: 100 hang power snatches, 100 push presses, 100 sumo deadlift high pulls, 100 front squats (♀ 20 kg / ♂ 30 kg)',
+  'topsy': 'AMRAP 25 min: 3 ring muscle-ups, 8 thrusters (♂ 42,5 kg / ♀ 30 kg), 17-calorie roeien',
+  'christine': '3 rondes voor tijd: 500 m roeien, 12 deadlifts (lichaamsgewicht), 21 box jumps (♂ 60 cm / ♀ 50 cm)',
+  'open 24.1': 'Voor tijd: 21-15-9 per arm — 21 dumbbell snatches (arm 1), 21 lateral burpees over de dumbbell, 21 dumbbell snatches (arm 2), 21 lateral burpees; daarna 15\u2019s en 9\u2019s (♂ 22,5 kg / ♀ 15 kg). Time cap: 15 min',
+  'open 22.3': 'Voor tijd: 21 pull-ups, 42 double-unders, 21 thrusters (♂ 42,5 kg / ♀ 30 kg) · 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (♂ 52,5 kg / ♀ 35 kg) · 15 bar muscle-ups, 30 double-unders, 15 thrusters (♂ 60 kg / ♀ 40 kg). Time cap: 12 min',
+  'open 25.2': 'Herhaling van Open 22.3: 21 pull-ups, 42 double-unders, 21 thrusters (♂ 42,5 kg / ♀ 30 kg) · 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (♂ 52,5 kg / ♀ 35 kg) · 15 bar muscle-ups, 30 double-unders, 15 thrusters (♂ 60 kg / ♀ 40 kg). Time cap: 12 min',
+  'open 22.3 / 25.2': 'Voor tijd: 21 pull-ups, 42 double-unders, 21 thrusters (♂ 42,5 kg / ♀ 30 kg) · 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (♂ 52,5 kg / ♀ 35 kg) · 15 bar muscle-ups, 30 double-unders, 15 thrusters (♂ 60 kg / ♀ 40 kg). Time cap: 12 min (22.3, in 2025 herhaald als 25.2)',
+  'half open 20.1': 'Helft van Open 20.1: 5 rondes van 8 bar-facing burpees en 10 dumbbell snatches (♂ 22,5 kg / ♀ 15 kg). Time cap: 15 min',
+  'open 20.1': '10 rondes voor tijd: 8 bar-facing burpees, 10 dumbbell snatches (♂ 22,5 kg / ♀ 15 kg). Time cap: 15 min',
+  'open workout 26.1': 'Voor tijd (piramide): 20 wall-ball shots, 18 box jump-overs, 30 wall-ball shots, 18 box jump-overs, 40 wall-ball shots, 18 medicine-ball box step-overs, 66 wall-ball shots, 18 medicine-ball box step-overs, 40 wall-ball shots, 18 box jump-overs, 30 wall-ball shots, 18 box jump-overs, 20 wall-ball shots (♂ 9 kg / ♀ 6 kg, box ♂ 60 cm / ♀ 50 cm). Time cap: 12 min',
+  'open workout 26.2': '3 rondes voor tijd, per ronde zwaardere gymnastiek: 80 ft dumbbell overhead walking lunges, 20 alternating dumbbell snatches (♂ 22,5 kg / ♀ 15 kg), 20 pull-ups → ronde 2: 20 chest-to-bar pull-ups → ronde 3: 20 ring muscle-ups. Time cap: 15 min'
+};
+
+function knownWodText(name){
+  return WOD_TEXTS[String(name || '').trim().toLowerCase()] || '';
+}
+
+// Open-workouts uit de historie, met omschrijving (net als de benchmarks).
+const OPEN_WODS = [
+ {n:'Open 20.1',t:'time',td:'~15 min',m:['burpee','dumbbell snatch'],x:'10 rondes voor tijd: 8 bar-facing burpees, 10 dumbbell snatches (♂ 22,5 kg / ♀ 15 kg). Time cap: 15 min'},
+ {n:'Half Open 20.1',t:'time',td:'~8 min',m:['burpee','dumbbell snatch'],x:'Helft van Open 20.1: 5 rondes van 8 bar-facing burpees en 10 dumbbell snatches (♂ 22,5 kg / ♀ 15 kg)'},
+ {n:'Open 22.3 / 25.2',t:'time',td:'~12 min',m:['pull-up','double-under','thruster','chest-to-bar pull-up','bar muscle-up'],x:'Voor tijd: 21 pull-ups, 42 double-unders, 21 thrusters (♂ 42,5 kg / ♀ 30 kg) · 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (♂ 52,5 kg / ♀ 35 kg) · 15 bar muscle-ups, 30 double-unders, 15 thrusters (♂ 60 kg / ♀ 40 kg). Time cap: 12 min (22.3, in 2025 herhaald als 25.2)'},
+ {n:'Open 24.1',t:'time',td:'~15 min',m:['dumbbell snatch','burpee'],x:'Voor tijd: 21-15-9 per arm — 21 dumbbell snatches (arm 1), 21 lateral burpees over de dumbbell, 21 dumbbell snatches (arm 2), 21 lateral burpees; daarna 15\u2019s en 9\u2019s (♂ 22,5 kg / ♀ 15 kg). Time cap: 15 min'},
+ {n:'Open Workout 26.1',t:'time',td:'~12 min',m:['wall-ball shot','box jump-over','box step-over'],x:'Voor tijd (piramide): 20 wall-ball shots, 18 box jump-overs, 30 wall-ball shots, 18 box jump-overs, 40 wall-ball shots, 18 medicine-ball box step-overs, 66 wall-ball shots, 18 medicine-ball box step-overs, 40 wall-ball shots, 18 box jump-overs, 30 wall-ball shots, 18 box jump-overs, 20 wall-ball shots (♂ 9 kg / ♀ 6 kg, box ♂ 60 cm / ♀ 50 cm). Time cap: 12 min'},
+ {n:'Open Workout 26.2',t:'time',td:'~15 min',m:['lunge','dumbbell snatch','pull-up','chest-to-bar pull-up','ring muscle-up'],x:'3 rondes voor tijd, per ronde zwaardere gymnastiek: 80 ft dumbbell overhead walking lunges, 20 alternating dumbbell snatches (♂ 22,5 kg / ♀ 15 kg), 20 pull-ups → ronde 2: 20 chest-to-bar pull-ups → ronde 3: 20 ring muscle-ups. Time cap: 15 min'}
+];
+
 const LIFT_SUGGEST = ['back squat','front squat','overhead squat','deadlift','sumo deadlift high pull','snatch','power snatch','hang power snatch','hang squat snatch','clean','power clean','hang power clean','squat clean','clean and jerk','push jerk','split jerk','bench press','push press','shoulder press','thruster','overhead press'];
 
 // ---------- state & opslag ----------
@@ -279,6 +312,7 @@ function renderWod(){
 
 function historyHtml(w, dateISO){
   const name = w.name || 'HQ WOD';
+  if(w.name && !w.text) w.text = knownWodText(w.name);
   const sameDay = state.results.filter(r => r.date === dateISO);
   const byName = w.name ? resultsFor(w.name).filter(r => r.date !== dateISO) : [];
   const prevBest = byName.length ? bestOf(byName) : null;
@@ -535,11 +569,12 @@ function bindForm(){
 const detailToggle = { bench: null, log: null };
 
 function resultDetailHtml(r){
+  const wodText = r.wodText || knownWodText(r.wodName);
   let html = '<div class="result detail-block"><span class="score">' + scoreLabel(r) + '</span> — ' + (r.scaled ? 'Scaled' : "Rx'd")
     + ' · ' + fmtDate(r.date);
   if(r.notes) html += ' · <span class="mut">' + esc(r.notes) + '</span>';
   html += '</div>';
-  if(r.wodText) html += '<div class="wod-text">' + esc(r.wodText) + '</div>';
+  if(wodText) html += '<div class="wod-text">' + esc(wodText) + '</div>';
   return html;
 }
 
@@ -563,6 +598,28 @@ function renderBench(){
     const open = detailToggle.bench === b.n;
     html += '<tr class="wrow" data-key="' + esc(b.n) + '">'
       + '<td><strong>' + b.n + '</strong> ' + (open ? '▾' : '▸') + '</td><td class="mut">' + typeLabel(b.t) + '</td>'
+      + (best ? '<td><span class="pr">' + scoreLabel(best) + '</span></td><td>' + (best.scaled ? 'Scaled' : "Rx'd") + '</td><td>' + fmtShort(best.date) + '</td><td>' + rs.length + '×</td>'
+             : '<td class="mut">—</td><td class="mut">—</td><td class="mut">—</td><td class="mut">0×</td>')
+      + '</tr>';
+    if(open){
+      html += '<tr class="detail-row"><td colspan="6">'
+        + '<div class="wod-text">' + esc(b.x) + '</div>'
+        + '<p class="mut" style="margin:6px 0 0;font-size:.85rem">Tijdsdomein: ' + esc(b.td || typeLabel(b.t)) + ' · Bewegingen: ' + esc(b.m.join(', ')) + '</p>'
+        + (rs.length ? '<h3>Gedaan op</h3>' + rs.map(resultDetailHtml).join('')
+                     : '<p class="mut" style="margin:10px 0 0">Nog niet gedaan.</p>')
+        + '</td></tr>';
+    }
+  }
+  html += '</table></section>';
+  html += '<section class="card"><h2>CrossFit Open-workouts</h2>'
+    + '<small class="hint">De Open-workouts uit je historie, met omschrijving en je eerdere resultaten.</small>'
+    + '<table><tr><th>WOD</th><th>Type</th><th>PR</th><th>Level</th><th>Datum</th><th>× gedaan</th>';
+  for(const b of OPEN_WODS){
+    const rs = resultsFor(b.n).sort((a,c) => a.date < c.date ? 1 : -1);
+    const best = rs.length ? bestOf(rs) : null;
+    const open = detailToggle.bench === b.n;
+    html += '<tr class="wrow" data-key="' + esc(b.n) + '">'
+      + '<td><strong>' + b.n + '</strong> ' + (open ? '\u25be' : '\u25b8') + '</td><td class="mut">' + typeLabel(b.t) + '</td>'
       + (best ? '<td><span class="pr">' + scoreLabel(best) + '</span></td><td>' + (best.scaled ? 'Scaled' : "Rx'd") + '</td><td>' + fmtShort(best.date) + '</td><td>' + rs.length + '×</td>'
              : '<td class="mut">—</td><td class="mut">—</td><td class="mut">—</td><td class="mut">0×</td>')
       + '</tr>';
@@ -661,7 +718,7 @@ function renderLog(){
     for(const r of rs){
       const open = detailToggle.log === r.id;
       html += '<tr class="wrow" data-key="' + r.id + '"><td>' + fmtShort(r.date) + '</td>'
-        + '<td><strong>' + esc(r.wodName) + '</strong> ' + (open ? '▾' : '▸') + '<br><small class="mut">' + esc((r.wodText||'').split('\n')[0].slice(0,60)) + '</small></td>'
+        + '<td><strong>' + esc(r.wodName) + '</strong> ' + (open ? '▾' : '▸') + '<br><small class="mut">' + esc((r.wodText || knownWodText(r.wodName)).split('\n')[0].slice(0,60)) + '</small></td>'
         + '<td class="pr">' + scoreLabel(r) + '</td><td>' + (r.scaled ? 'Scaled' : "Rx'd") + '</td>'
         + '<td><button class="del" data-del="' + r.id + '">🗑</button></td></tr>';
       if(open){
