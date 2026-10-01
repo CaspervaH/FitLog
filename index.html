@@ -139,6 +139,23 @@ function knownWodText(name){
   return WOD_TEXTS[String(name || '').trim().toLowerCase()] || '';
 }
 
+// Datumcode-WOD's (bv. '260921' of '241229 / 251229') verwijzen naar de HQ-WOD
+// van crossfit.com van die datum. Eerst de geladen HQ-data, anders live ophalen.
+function dateCodes(name){
+  const m = /^(\d{6})(?:\s*\/\s*(\d{6}))?$/.exec(String(name || '').trim());
+  return m ? [m[1], m[2]].filter(Boolean) : [];
+}
+function hqTextFor(name){
+  for (const code of dateCodes(name)){
+    const w = HQ_WODS.find(x => String(x.id) === code);
+    if (w && w.text && w.type !== 'rest') return w.text;
+  }
+  return '';
+}
+function knownOrHqText(name, fallbackText){
+  return knownWodText(name) || hqTextFor(name) || (fallbackText || '');
+}
+
 // Open-workouts uit de historie, met omschrijving (net als de benchmarks).
 const OPEN_WODS = [
  {n:'Open 20.1',t:'time',td:'~15 min',m:['burpee','dumbbell snatch'],x:'10 rondes voor tijd: 8 bar-facing burpees, 10 dumbbell snatches (♂ 22,5 kg / ♀ 15 kg). Time cap: 15 min'},
@@ -569,7 +586,7 @@ function bindForm(){
 const detailToggle = { bench: null, log: null };
 
 function resultDetailHtml(r){
-  const wodText = r.wodText || knownWodText(r.wodName);
+  const wodText = knownOrHqText(r.wodName, r.wodText);
   let html = '<div class="result detail-block"><span class="score">' + scoreLabel(r) + '</span> — ' + (r.scaled ? 'Scaled' : "Rx'd")
     + ' · ' + fmtDate(r.date);
   if(r.notes) html += ' · <span class="mut">' + esc(r.notes) + '</span>';
@@ -718,7 +735,7 @@ function renderLog(){
     for(const r of rs){
       const open = detailToggle.log === r.id;
       html += '<tr class="wrow" data-key="' + r.id + '"><td>' + fmtShort(r.date) + '</td>'
-        + '<td><strong>' + esc(r.wodName) + '</strong> ' + (open ? '▾' : '▸') + '<br><small class="mut">' + esc((r.wodText || knownWodText(r.wodName)).split('\n')[0].slice(0,60)) + '</small></td>'
+        + '<td><strong>' + esc(r.wodName) + '</strong> ' + (open ? '▾' : '▸') + '<br><small class="mut">' + esc(knownOrHqText(r.wodName, r.wodText).split('\n')[0].slice(0,60)) + '</small></td>'
         + '<td class="pr">' + scoreLabel(r) + '</td><td>' + (r.scaled ? 'Scaled' : "Rx'd") + '</td>'
         + '<td><button class="del" data-del="' + r.id + '">🗑</button></td></tr>';
       if(open){
