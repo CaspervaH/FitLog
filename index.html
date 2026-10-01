@@ -409,7 +409,8 @@ function renderLift(){
   let html = '<section class="card"><h2>Lifting loggen</h2>'
     + '<div class="row"><div><label for="lName">Oefening</label><input id="lName" list="liftList" placeholder="bv. back squat"></div>'
     + '<div><label for="lKg">Kilogram</label><input id="lKg" type="number" min="0" step="0.5" inputmode="decimal"></div>'
-    + '<div><label for="lReps">Reps</label><input id="lReps" type="number" min="1" inputmode="numeric"></div></div>'
+    + '<div><label for="lReps">Reps</label><input id="lReps" type="number" min="1" inputmode="numeric"></div>'
+    + '<div><label for="lNotes">Notitie</label><input id="lNotes" placeholder="optioneel"></div></div>'
     + '<datalist id="liftList">' + LIFT_SUGGEST.map(l => '<option value="' + esc(l) + '">').join('') + '</datalist>'
     + '<button class="save" id="liftBtn">Log lift</button></section>';
   html += '<section class="card"><h2>PR-overzicht</h2>';
@@ -432,7 +433,7 @@ function renderLift(){
   if(recent.length){
     html += '<section class="card"><h3>Recente lifts</h3><table><tr><th>Datum</th><th>Oefening</th><th>Set</th><th></th></tr>';
     for(const l of recent){
-      html += '<tr><td>' + fmtShort(l.date) + '</td><td>' + esc(l.lift) + '</td><td>' + l.kg + ' kg × ' + l.reps + '</td>'
+      html += '<tr><td>' + fmtShort(l.date) + '</td><td>' + esc(l.lift) + '</td><td>' + l.kg + ' kg × ' + l.reps + (l.notes ? '<br><small class="mut">' + esc(l.notes) + '</small>' : '') + '</td>'
         + '<td><button class="del" data-del="' + l.id + '">🗑</button></td></tr>';
     }
     html += '</table></section>';
@@ -443,7 +444,8 @@ function renderLift(){
     const kg = Number(document.getElementById('lKg').value || 0);
     const reps = Number(document.getElementById('lReps').value || 0);
     if(!n || !kg || !reps){ alert('Vul oefening, kilo\u2019s en reps in.'); return; }
-    state.lifts.push({id: uid(), date: todayISO(), lift: n, kg, reps});
+    const lnotes = (document.getElementById('lNotes').value || '').trim();
+    state.lifts.push({id: uid(), date: todayISO(), lift: n, kg, reps, notes: lnotes});
     save(); renderLift();
   };
   app.querySelectorAll('button[data-del]').forEach(b => b.onclick = () => {
