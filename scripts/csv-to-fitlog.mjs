@@ -128,7 +128,8 @@ async function fetchHqWodText(code) {
     const j = await res.json();
     const raw = String((j.wods && j.wods.wodRaw) || '').replace(/\r\n/g, '\n').trim();
     if (!raw) return '';
-    if (/rest day/i.test(raw.slice(0, 20))) return 'Rest day';
+    // Een HQ-restday is geen omschrijving voor een box-WOD: laat leeg.
+    if (/^\s*\*?\*?rest day/i.test(raw)) return '';
     // Markdown-links ([Box jumps](https://...)) strippen naar platte tekst;
     // **Naam**-markeringen naar de naam zelf.
     const plain = raw
@@ -150,8 +151,13 @@ const hqTextCache = new Map();
 async function hqText(name){
   const m = dateCodeRE.exec(name);
   if (!m) return '';
-  if (!hqTextCache.has(m[1])) hqTextCache.set(m[1], await fetchHqWodText(m[1]));
-  return hqTextCache.get(m[1]);
+  // Bij een dubbele code (bv. '241229 / 251229') de eerste niet-lege tekst gebruiken.
+  for (const code of [m[1], m[2]].filter(Boolean)) {
+    if (!hqTextCache.has(code)) hqTextCache.set(code, await fetchHqWodText(code));
+    const t = hqTextCache.get(code);
+    if (t) return t;
+  }
+  return '';
 }
 
 for (const r of rows) {
