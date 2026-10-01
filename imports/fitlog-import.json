@@ -1,7 +1,7 @@
 {
   "app": "fitlog",
   "version": 1,
-  "exported": "2026-10-01T10:04:08.774Z",
+  "exported": "2026-10-01T10:15:52.652Z",
   "results": [
     {
       "id": "imp-001",
@@ -1211,21 +1211,24 @@
       "date": "2026-03-18",
       "lift": "overhead squat",
       "kg": 30,
-      "reps": 10
+      "reps": 10,
+      "notes": "nog niet diep genoeg"
     },
     {
       "id": "imp-034",
       "date": "2026-03-09",
       "lift": "squat snatch",
       "kg": 45,
-      "reps": 1
+      "reps": 1,
+      "notes": "niet echt diep"
     },
     {
       "id": "imp-035",
       "date": "2026-03-09",
       "lift": "hang squat snatch",
       "kg": 45,
-      "reps": 1
+      "reps": 1,
+      "notes": "niet echt diep"
     },
     {
       "id": "imp-038",

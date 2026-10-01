@@ -107,7 +107,7 @@ for (const r of rows) {
   if (type === 'lift') {
     // Lifting-tab: kg x reps per oefening
     for (const set of parseRepSchema(schema)) {
-      lifts.push({ id: uid(), date, lift: name.toLowerCase(), kg: set.kg, reps: set.reps });
+      lifts.push({ id: uid(), date, lift: name.toLowerCase(), kg: set.kg, reps: set.reps, ...(notes ? { notes } : {}) });
     }
     if (!schema) warnings.push(`Leeg repschema voor lift ${name} (${date})`);
     continue;
