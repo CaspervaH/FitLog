@@ -9,7 +9,8 @@ CrossFit-logapp in één statisch HTML-bestand: bekijk de HQ-WOD van de dag, log
 - **🏆 PR-detectie** — automatisch beste score per WOD (snelste tijd, meeste rondes/reps of kilo's) met PR-melding bij opslaan.
 - **Benchmark** — 30 klassieke benchmark-WOD's (The Girls & Heroes) met PR-overzicht; klik op een benchmark voor de omschrijving en al je eerdere resultaten (datum, score, notities).
 - **Lifting** — log kg × reps per oefening; PR-tabel met zwaarste set, geschatte 1RM (Epley) en echte 1RM.
-
+- **Automatische lift-herkenning** — bevat een WOD een lift-oefening (bv. "Push press 5-5-5-5-5", "Build to a 1-rep-max clean and jerk" of een "N sets for load"-blok), dan verschijnt die automatisch in het logformulier. Bij Rx'd worden het Rx-gewicht (uit de ♀/♂-regels, lb→kg omgerekend) plus de voorgeschreven reps en sets voorgevuld; bij Scaled vul je zelf gewicht, reps en sets in. Bij opslaan wordt de lift meegenomen in je lifting-log en PR-overzicht. Metcon-reps (bv. 30 clean and jerks in Grace) worden niet als lift-set gelogd.
+- **WOD-log** — volledige historie met zoeken en export/import als JSON-backup; klik op een regel voor datum, WOD-omschrijving en je notities.
 
 ## Gebruiken
 
