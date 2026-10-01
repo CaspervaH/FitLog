@@ -50,6 +50,12 @@ th{font-size:.8rem;text-transform:uppercase;color:var(--mut);letter-spacing:.03e
 .msg{background:var(--green-l);color:var(--green);border-radius:10px;padding:10px 12px;font-weight:600;margin-top:10px}
 .rest{background:#eef1f7;color:#3b4a86;border-radius:12px;padding:24px;text-align:center;font-size:1.05rem}
 small.hint{color:var(--mut)}
+.wrow{cursor:pointer}
+.wrow:hover{background:var(--green-l)}
+.detail-row>td{padding:12px 6px 14px;border-bottom:1px solid var(--line)}
+.detail-row .wod-text{margin-top:8px;font-size:.95rem}
+.detail-block{margin-bottom:10px}
+.detail-block:last-child{margin-bottom:0}
 @media(max-width:520px){main{padding:10px}.dayhead{flex-wrap:wrap}}
 </style>
 </head>
@@ -377,26 +383,53 @@ function bindForm(){
   };
 }
 
+// ---------- uitklap-detail (herbruikbaar voor Benchmark en WOD-log) ----------
+const detailToggle = { bench: null, log: null };
+
+function resultDetailHtml(r){
+  let html = '<div class="result detail-block"><span class="score">' + scoreLabel(r) + '</span> — ' + (r.scaled ? 'Scaled' : "Rx'd")
+    + ' · ' + fmtDate(r.date);
+  if(r.notes) html += ' · <span class="mut">' + esc(r.notes) + '</span>';
+  html += '</div>';
+  if(r.wodText) html += '<div class="wod-text">' + esc(r.wodText) + '</div>';
+  return html;
+}
+
+function bindDetailRows(scopeKey, container){
+  container.querySelectorAll('tr.wrow[data-key]').forEach(row => {
+    row.onclick = () => {
+      detailToggle[scopeKey] = detailToggle[scopeKey] === row.dataset.key ? null : row.dataset.key;
+      render();
+    };
+  });
+}
+
 // ===== Benchmark =====
 function renderBench(){
   let html = '<section class="card"><h2>Benchmark-WOD\u2019s &amp; PR\u2019s</h2>'
-    + '<table><tr><th>WOD</th><th>Type</th><th>PR</th><th>Level</th><th>Datum</th><th>× gedaan</th><th></th></tr>';
+    + '<small class="hint">Klik op een benchmark voor de omschrijving en je eerdere resultaten.</small>'
+    + '<table><tr><th>WOD</th><th>Type</th><th>PR</th><th>Level</th><th>Datum</th><th>× gedaan</th></tr>';
   for(const b of BENCHMARKS){
-    const rs = resultsFor(b.n);
+    const rs = resultsFor(b.n).sort((a,c) => a.date < c.date ? 1 : -1);
     const best = rs.length ? bestOf(rs) : null;
-    html += '<tr><td><strong>' + b.n + '</strong></td><td class="mut">' + typeLabel(b.t) + '</td>'
+    const open = detailToggle.bench === b.n;
+    html += '<tr class="wrow" data-key="' + esc(b.n) + '">'
+      + '<td><strong>' + b.n + '</strong> ' + (open ? '▾' : '▸') + '</td><td class="mut">' + typeLabel(b.t) + '</td>'
       + (best ? '<td><span class="pr">' + scoreLabel(best) + '</span></td><td>' + (best.scaled ? 'Scaled' : "Rx'd") + '</td><td>' + fmtShort(best.date) + '</td><td>' + rs.length + '×</td>'
              : '<td class="mut">—</td><td class="mut">—</td><td class="mut">—</td><td class="mut">0×</td>')
       + '</tr>';
+    if(open){
+      html += '<tr class="detail-row"><td colspan="6">'
+        + '<div class="wod-text">' + esc(b.x) + '</div>'
+        + '<p class="mut" style="margin:6px 0 0;font-size:.85rem">Tijdsdomein: ' + esc(b.td || typeLabel(b.t)) + ' · Bewegingen: ' + esc(b.m.join(', ')) + '</p>'
+        + (rs.length ? '<h3>Gedaan op</h3>' + rs.map(resultDetailHtml).join('')
+                     : '<p class="mut" style="margin:10px 0 0">Nog niet gedaan.</p>')
+        + '</td></tr>';
+    }
   }
   html += '</table></section>';
-  html += '<section class="card"><h3>Benchmark-omschrijvingen</h3>';
-  for(const b of BENCHMARKS){
-    html += '<h3>' + b.n + ' <span class="chip">' + (b.td || typeLabel(b.t)) + '</span></h3><div class="wod-text">' + esc(b.x) + '</div>'
-      + '<p class="mut" style="margin:6px 0 0;font-size:.85rem">Bewegingen: ' + esc(b.m.join(', ')) + '</p>';
-  }
-  html += '</section>';
   app.innerHTML = html;
+  bindDetailRows('bench', app);
 }
 function typeLabel(t){
   return {time:'voor tijd', amrap:'AMRAP', load:'max load', reps:'max reps', other:'anders', rest:'rustdag'}[t] || t;
@@ -463,11 +496,17 @@ function renderLog(){
     + '<div class="row"><div><label for="logQ">Zoeken</label><input id="logQ" value="' + esc(window.__logQ || '') + '" placeholder="WOD-naam of notitie"></div></div>'
     + '<p class="mut">' + state.results.length + ' resultaten</p>';
   if(rs.length){
+    html += '<small class="hint">Klik op een regel voor de omschrijving en je notities.</small>';
     html += '<table><tr><th>Datum</th><th>WOD</th><th>Resultaat</th><th>Level</th><th></th></tr>';
     for(const r of rs){
-      html += '<tr><td>' + fmtShort(r.date) + '</td><td><strong>' + esc(r.wodName) + '</strong><br><small class="mut">' + esc((r.wodText||'').split('\n')[0].slice(0,60)) + '</small></td>'
+      const open = detailToggle.log === r.id;
+      html += '<tr class="wrow" data-key="' + r.id + '"><td>' + fmtShort(r.date) + '</td>'
+        + '<td><strong>' + esc(r.wodName) + '</strong> ' + (open ? '▾' : '▸') + '<br><small class="mut">' + esc((r.wodText||'').split('\n')[0].slice(0,60)) + '</small></td>'
         + '<td class="pr">' + scoreLabel(r) + '</td><td>' + (r.scaled ? 'Scaled' : "Rx'd") + '</td>'
         + '<td><button class="del" data-del="' + r.id + '">🗑</button></td></tr>';
+      if(open){
+        html += '<tr class="detail-row"><td colspan="5">' + resultDetailHtml(r) + '</td></tr>';
+      }
     }
     html += '</table>';
   } else html += '<p class="mut">Nog niets gelogd.</p>';
@@ -478,6 +517,7 @@ function renderLog(){
     + '<small class="hint">De export bevat je resultaten, lifts en WOD-geschiedenis.</small></section>';
   app.innerHTML = html;
   document.getElementById('logQ').oninput = e => { window.__logQ = e.target.value; renderLog(); document.getElementById('logQ').focus(); };
+  bindDetailRows('log', app);
   app.querySelectorAll('button[data-del]').forEach(b => b.onclick = () => {
     state.results = state.results.filter(r => r.id !== b.dataset.del);
     save(); renderLog();
