@@ -50,7 +50,7 @@ function decodeEntities(s) {
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
 }
 
-function htmlToText(html) {
+export function htmlToText(html) {
   return decodeEntities(
     html
       .replace(/<script[\s\S]*?<\/script>/gi, '')
@@ -82,7 +82,7 @@ function detectType(body) {
 }
 
 // Knip de Rx-body los van coaching-/scaling-tekst.
-function cleanBody(rawBody) {
+export function cleanBody(rawBody) {
   const lines = rawBody.split('\n');
   const kept = [];
   for (const line of lines) {
@@ -124,7 +124,7 @@ function extractTimeDomain(body) {
   return null;
 }
 
-function parseDays(text) {
+export function parseDays(text) {
   const headerRe = /(?:^|\n)#{0,6}\s*(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+(\d{6})\s*(?=\n)/gi;
   const matches = [...text.matchAll(headerRe)];
   const days = new Map();
@@ -191,4 +191,19 @@ async function main() {
   console.log(`Geschreven: ${OUT} (${merged.length} WOD's)`);
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+// Parse een enkele dagpagina (crossfit.com/workout/jjjj/mm/dd). De header
+// op zo'n pagina is '### <code>' gevolgd door '### Workout of the Day'.
+export function parseDayPage(text, code) {
+  const re = new RegExp('###\\s+workout of the day\\s*\\n([\\s\\S]*?)(?=\\n### |$)', 'i');
+  const m = text.match(re);
+  if (!m) return null;
+  const raw = m[1];
+  if (/^\\s*\\*?\\*?rest day/i.test(raw)) return { id: code, type: 'rest', text: 'Rest day', movements: [], timeDomain: null };
+  const body = cleanBody(raw);
+  if (!body) return null;
+  return { id: code, type: detectType(raw), text: body, movements: extractMovements(body), timeDomain: extractTimeDomain(body) };
+}
+
+// Alleen direct uitvoeren (niet bij import vanuit csv-to-fitlog.mjs).
+const invokedDirectly = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (invokedDirectly) main().catch(e => { console.error(e); process.exit(1); });

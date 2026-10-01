@@ -2,6 +2,13 @@
 // Zet een SugarWOD-achtige CSV-export om naar het fitlog-backupformaat.
 // Gebruik: node csv-to-fitlog.mjs <input.csv> <output.json>
 import { readFileSync, writeFileSync } from 'node:fs';
+import { cleanBody } from './scrape-wods.mjs';
+
+const URL_CF_DAY = 'https://www.crossfit.com/workout/';
+
+// Datumcodes (bv. '240924' of '241229 / 251229') verwijzen naar de HQ-WOD
+// van crossfit.com van die datum. Haal de omschrijving op van de officiële
+// dagpagina; gefaalde pogingen vallen stil terug op een lege tekst.
 
 const [input, output] = process.argv.slice(2);
 if (!input || !output) {
@@ -108,9 +115,44 @@ const WOD_TEXTS = {
 };
 const knownWodText = name => WOD_TEXTS[String(name || '').trim().toLowerCase()] || '';
 
+const dateCodeRE = /^(\d{6})(?:\s*\/\s*(\d{6}))?$/;
+
+async function fetchHqWodText(code) {
+  const yy = code.slice(0, 2), mm = code.slice(2, 4), dd = code.slice(4, 6);
+  const url = `${URL_CF_DAY}20${yy}/${mm}/${dd}`;
+  try {
+    // JSON-endpoint van crossfit.com (zelfde als de site zelf gebruikt):
+    // geeft { wods: { wodRaw, title } } voor elke historische datum.
+    const res = await fetch(url, { headers: { 'user-agent': 'FitLog-WOD-updater/1.0', accept: 'application/json' } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const j = await res.json();
+    const raw = String((j.wods && j.wods.wodRaw) || '').replace(/\r\n/g, '\n').trim();
+    if (!raw) return '';
+    if (/rest day/i.test(raw.slice(0, 20))) return 'Rest day';
+    // Markdown-links ([Box jumps](https://...)) strippen naar platte tekst;
+    // **Naam**-markeringen naar de naam zelf.
+    const plain = raw
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+      .replace(/\*\*(.+?)\*\*/g, '$1')
+      .replace(/\s*\\?\n\s*\\?\n/g, '\n');
+    return cleanBody(plain);
+  } catch (e) {
+    warnings.push(`Kon HQ-WOD ${code} niet ophalen: ${e.message}`);
+    return '';
+  }
+}
+
 const results = [];
 const lifts = [];
 const warnings = [];
+
+const hqTextCache = new Map();
+async function hqText(name){
+  const m = dateCodeRE.exec(name);
+  if (!m) return '';
+  if (!hqTextCache.has(m[1])) hqTextCache.set(m[1], await fetchHqWodText(m[1]));
+  return hqTextCache.get(m[1]);
+}
 
 for (const r of rows) {
   const date = toISODate(r[idx['datum']]);
@@ -133,7 +175,8 @@ for (const r of rows) {
     continue;
   }
 
-  const res = { id: uid(), date, wodName: name, wodText: knownWodText(name), movements: [], type, timeDomain: '', scaled, notes };
+  const wodText = knownWodText(name) || await hqText(name);
+  const res = { id: uid(), date, wodName: name, wodText, movements: [], type, timeDomain: '', scaled, notes };
   if (type === 'time') Object.assign(res, parseTime(score));
   else if (type === 'amrap') Object.assign(res, parseRoundsReps(score));
   else if (type === 'load') res.kg = parseKg(score);
