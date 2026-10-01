@@ -243,6 +243,7 @@ function renderWod(){
     html += '<section class="card"><h3>Resultaat invoeren</h3>'
       + '<div class="toggle" id="lvlToggle"><button type="button" data-lvl="rx" class="on rx">Rx\u2019d</button><button type="button" data-lvl="sc" class="sc">Scaled</button></div>'
       + '<div id="scoreFields"></div>'
+      + '<div id="liftFields"></div>'
       + '<label for="fnotes">Scaling / notities</label>'
       + '<textarea id="fnotes" rows="2" placeholder="bijv. 40 kg thrusters, jumping pull-ups"></textarea>'
       + '<button class="save" id="saveBtn">Opslaan</button><div id="formMsg"></div></section>';
@@ -259,6 +260,13 @@ function renderWod(){
       const fields = document.getElementById('scoreFields');
       const draw = () => { fields.innerHTML = scoreFieldsHtml(typeSel.value); bindScaledToggle(); };
       typeSel.onchange = draw; draw();
+      const wt = document.getElementById('wodText');
+      const liftEl = document.getElementById('liftFields');
+      const syncLifts = () => {
+        const lvls = document.querySelectorAll('#lvlToggle button.on');
+        liftEl.innerHTML = liftFormHtml(detectLiftsFromText(wt.value), lvls.length ? lvls[0].dataset.lvl === 'sc' : false);
+      };
+      wt.oninput = syncLifts; syncLifts();
     }
   }
 }
@@ -303,6 +311,88 @@ function similarHtml(w, dateISO){
     + '<small class="hint">Overlap = deel van de bewegingen van deze WOD dat ook in die WOD voorkomt.</small></section>';
 }
 
+function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function toKg(val, unit){
+  let v = parseFloat(String(val).replace(',', '.'));
+  if(unit === 'lb') v = v * 0.45359237;
+  return Math.round(v * 2) / 2;
+}
+
+// Zoekt het ♀/♂ Rx-gewicht dat bij deze lift hoekt (op basis van equipment-woord).
+function rxPairFor(text, name){
+  const t = String(text || '');
+  const equip = /kettlebell/i.test(name) ? 'kettlebell' : /dumbbell/i.test(name) ? 'dumbbell' : 'barbell';
+  const re = /([♀♂])\s*([\d.,]+)\s*-?\s*(lb|kg)/g;
+  const hits = [];
+  let m;
+  while((m = re.exec(t))) hits.push({g: m[1], kg: toKg(m[2], m[3]), idx: m.index});
+  const pairs = [];
+  for(let i = 0; i + 1 < hits.length; i++){
+    if(hits[i].g === '♀' && hits[i+1].g === '♂') pairs.push({f: hits[i].kg, m: hits[i+1].kg, idx: hits[i].idx});
+  }
+  if(pairs.length){
+    const fit = pairs.find(p => t.slice(p.idx, p.idx + 60).toLowerCase().includes(equip));
+    return fit || pairs[0];
+  }
+  if(hits.length === 1) return {f: hits[0].kg, m: hits[0].kg};
+  return null;
+}
+
+// Haalt reps/sets uit de WOD-tekst voor een specifieke lift.
+function parseLiftPrescription(text, name){
+  const lines = String(text || '').split('\n');
+  const reL = new RegExp('\\b' + escapeRe(name) + 's?\\b', 'i');
+  let sets = null, reps = null, plain = false;
+  const li = lines.findIndex(ln => reL.test(ln));
+  if(li >= 0){
+    const line = lines[li];
+    const prev = li > 0 ? lines[li-1] : '';
+    let m;
+    if((m = line.match(/(\d+(?:-\d+)*)\s*(?:x\s*)?reps?\b/i))){
+      const p = m[1].split('-').map(Number);
+      if(p.length > 1){ sets = p.length; reps = Math.max(...p); } else { reps = p[0]; }
+    } else if((m = line.match(/(\d+)-rep-max\b/i))){
+      reps = Number(m[1]);
+    } else if((m = line.match(new RegExp('(\\d+)\\s*(?:x\\s*)?' + escapeRe(name) + 's?\\b', 'i')))){
+      reps = Number(m[1]); plain = true;
+    } else if((m = prev.match(/(\d+(?:-\d+)+)\s*reps?\b/i))){
+      const p = m[1].split('-').map(Number);
+      sets = p.length; reps = Math.max(...p);
+    }
+  }
+  if(!sets){
+    const rm = String(text || '').match(/(\d+)\s+rounds?\b/i);
+    if(rm){ sets = Number(rm[1]); plain = true; }
+  }
+  if(!sets){
+    const sm = String(text || '').match(/(\d+)\s+sets?\s+for\s+load\b/i);
+    if(sm) sets = Number(sm[1]);
+  }
+  if(reps && !sets) sets = 1;
+  return {sets, reps, plain, rx: rxPairFor(text, name)};
+}
+
+// Herkend barbell-lifts in een WOD-tekst (langste namen eerst, zodat
+// \u201csumo deadlift high pull\u201d niet ook als \u201cdeadlift\u201d telt).
+function detectLiftsFromText(text){
+  const t = String(text || '');
+  if(!t) return [];
+  let masked = t;
+  const found = [];
+  for(const L of [...LIFT_SUGGEST].sort((a,b) => b.length - a.length)){
+    const m = new RegExp('\\b' + escapeRe(L) + 's?\\b', 'i').exec(masked);
+    if(m){
+      found.push(L);
+      masked = masked.slice(0, m.index) + ' '.repeat(m[0].length) + masked.slice(m.index + m[0].length);
+    }
+  }
+  return found.slice(0, 4)
+    .map(name => ({name, ...parseLiftPrescription(t, name)}))
+    .filter(L => (L.reps || 0) > 0 && (L.reps || 0) <= 12)
+    .filter(L => !L.plain || !/for time|amrap|as many|rounds/i.test(t));
+}
+
 function scoreFieldsHtml(type){
   if(type === 'time') return '<div class="row"><div><label for="fmin">Minuten</label><input id="fmin" type="number" min="0" inputmode="numeric"></div>'
     + '<div><label for="fsec">Seconden</label><input id="fsec" type="number" min="0" max="59" inputmode="numeric"></div></div>';
@@ -311,6 +401,36 @@ function scoreFieldsHtml(type){
   if(type === 'load') return '<div><label for="fkg">Kilogram</label><input id="fkg" type="number" min="0" step="0.5" inputmode="decimal"></div>';
   if(type === 'reps') return '<div><label for="freps">Reps</label><input id="freps" type="number" min="0" inputmode="numeric"></div>';
   return '<div><label for="ftxt">Score (vrije tekst)</label><input id="ftxt" placeholder="bijv. 3 rondes + time cap gehaald"></div>';
+}
+
+function liftFormHtml(lifts, scaled){
+  if(!lifts || !lifts.length) return '';
+  let html = '<h3 id="liftHead">Gevonden lift' + (lifts.length > 1 ? 's' : '') + ' \u2014 automatisch gelogd</h3>'
+    + '<input type="hidden" id="liftNames" value="' + esc(lifts.map(l => l.name).join(',')) + '">';
+  lifts.forEach((L, i) => {
+    html += '<div class="card" style="background:#f2f7f2;padding:10px 12px">'
+      + '<strong>' + esc(L.name) + '</strong>'
+      + '<span class="chip" id="chip' + i + '">' + (scaled ? 'Scaled' : "Rx'd") + '</span>';
+    if(!scaled){
+      const rx = L.rx;
+      const rxTxt = rx ? (' \u2014 Rx: \u2640 ' + rx.f + ' kg / \u2642 ' + rx.m + ' kg') : ' \u2014 Rx: vul gewicht in';
+      html += '<small class="mut">Voorgeschreven: ' + (L.sets || 1) + ' set(s) \u00d7 ' + (L.reps || '?') + ' reps' + rxTxt + '</small>'
+        + '<div class="row">'
+        + '<div><label for="lkg' + i + '">Gewicht (kg)</label><input id="lkg' + i + '" type="number" step="0.5" min="0" inputmode="decimal" value="' + (rx ? rx.f : '') + '"></div>'
+        + '<div><label for="lsets' + i + '">Sets</label><input id="lsets' + i + '" type="number" min="1" inputmode="numeric" value="' + (L.sets || 1) + '"></div>'
+        + '<div><label for="lreps' + i + '">Reps</label><input id="lreps' + i + '" type="number" min="1" inputmode="numeric" value="' + (L.reps || '') + '"></div>'
+        + '</div>';
+    } else {
+      html += '<small class="mut">Scaled \u2014 vul je eigen sets, reps en gewicht in.</small>'
+        + '<div class="row">'
+        + '<div><label for="lkg' + i + '">Gewicht (kg)</label><input id="lkg' + i + '" type="number" step="0.5" min="0" inputmode="decimal" placeholder="kg"></div>'
+        + '<div><label for="lsets' + i + '">Sets</label><input id="lsets' + i + '" type="number" min="1" inputmode="numeric" placeholder="bv. 5"></div>'
+        + '<div><label for="lreps' + i + '">Reps</label><input id="lreps' + i + '" type="number" min="1" inputmode="numeric" placeholder="bv. 5"></div>'
+        + '</div>';
+    }
+    html += '</div>';
+  });
+  return html;
 }
 
 function formHtml(name, type, text, movements, td){
@@ -323,6 +443,7 @@ function formHtml(name, type, text, movements, td){
     + '<input type="hidden" id="wodTd" value="' + esc(td || '') + '">'
     + '<div class="toggle" id="lvlToggle"><button type="button" data-lvl="rx" class="on rx">Rx\u2019d</button><button type="button" data-lvl="sc" class="sc">Scaled</button></div>'
     + '<div id="scoreFields">' + scoreFieldsHtml(type) + '</div>'
+    + '<div id="liftFields">' + liftFormHtml(detectLiftsFromText(text), false) + '</div>'
     + '<label for="fnotes">Scaling / notities</label>'
     + '<textarea id="fnotes" rows="2" placeholder="bijv. 40 kg thrusters, jumping pull-ups"></textarea>'
     + '<button class="save" id="saveBtn">Opslaan</button><div id="formMsg"></div></section>';
@@ -334,6 +455,10 @@ function bindScaledToggle(){
   tog.querySelectorAll('button').forEach(b => b.onclick = () => {
     tog.querySelectorAll('button').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
+    const lf = document.getElementById('liftFields');
+    if(!lf) return;
+    const scaled = b.dataset.lvl === 'sc';
+    lf.innerHTML = liftFormHtml(detectLiftsFromText(document.getElementById('wodText') ? document.getElementById('wodText').value : ''), scaled);
   });
 }
 
@@ -354,7 +479,25 @@ function readForm(){
   else if(type === 'load'){ r.kg = Number(document.getElementById('fkg').value || 0); }
   else if(type === 'reps'){ r.reps = Number(document.getElementById('freps').value || 0); }
   else { r.txt = document.getElementById('ftxt').value.trim(); }
+  r.lifts = readLiftInputs(scaled);
   return r;
+}
+
+// Leest de lift-velden uit het formulier; geeft null terug als er geen
+// geldige lifts zijn. Bij Rx zijn de velden vooraf gevuld uit de WOD-tekst,
+// bij Scaled vult de gebruiker ze zelf in.
+function readLiftInputs(scaled){
+  const namesEl = document.getElementById('liftNames');
+  if(!namesEl || !namesEl.value.trim()) return null;
+  const names = namesEl.value.split(',').map(s => s.trim()).filter(Boolean);
+  const out = [];
+  names.forEach((n, i) => {
+    const kg = Number((document.getElementById('lkg' + i) || {}).value || 0);
+    const sets = Number((document.getElementById('lsets' + i) || {}).value || 0);
+    const reps = Number((document.getElementById('lreps' + i) || {}).value || 0);
+    if(kg > 0 && sets > 0 && reps > 0) out.push({lift: n, kg, sets, reps, scaled});
+  });
+  return out.length ? out : null;
 }
 
 function bindForm(){
@@ -365,6 +508,11 @@ function bindForm(){
     const prevBest = bestOf(earlier);
     const isPR = !prevBest ? true : isBetter(r, prevBest);
     state.results.push(r);
+    if(r.lifts && r.lifts.length){
+      for(const L of r.lifts){
+        state.lifts.push({id: uid(), date: state.date, lift: L.lift, kg: L.kg, sets: L.sets, reps: L.reps, scaled: !!L.scaled, notes: 'uit WOD: ' + r.wodName});
+      }
+    }
     save();
     render();
     const msg = document.getElementById('formMsg');
@@ -403,9 +551,21 @@ function typeLabel(t){
 }
 
 // ===== Lifting =====
+function liftEntries(l){
+  if(!l || typeof l !== 'object' || !l.lift) return [];
+  if(l.sets > 1) return Array.from({length: l.sets}, () => ({...l}));
+  return [l];
+}
+
 function renderLift(){
   const byLift = {};
-  for(const l of state.lifts){ (byLift[l.lift] = byLift[l.lift] || []).push(l); }
+  const singles = [];
+  for(const l of state.lifts){
+    for(const e of liftEntries(l)){
+      singles.push(e);
+      (byLift[e.lift] = byLift[e.lift] || []).push(e);
+    }
+  }
   let html = '<section class="card"><h2>Lifting loggen</h2>'
     + '<div class="row"><div><label for="lName">Oefening</label><input id="lName" list="liftList" placeholder="bv. back squat"></div>'
     + '<div><label for="lKg">Kilogram</label><input id="lKg" type="number" min="0" step="0.5" inputmode="decimal"></div>'
@@ -429,11 +589,11 @@ function renderLift(){
     html += '</table><small class="hint">Geschatte 1RM via Epley: gewicht × (1 + reps/30).</small>';
   }
   html += '</section>';
-  const recent = [...state.lifts].sort((a,b) => a.date < b.date ? 1 : -1).slice(0, 15);
+  const recent = [...singles].sort((a,b) => a.date < b.date ? 1 : -1).slice(0, 15);
   if(recent.length){
     html += '<section class="card"><h3>Recente lifts</h3><table><tr><th>Datum</th><th>Oefening</th><th>Set</th><th></th></tr>';
     for(const l of recent){
-      html += '<tr><td>' + fmtShort(l.date) + '</td><td>' + esc(l.lift) + '</td><td>' + l.kg + ' kg × ' + l.reps + (l.notes ? '<br><small class="mut">' + esc(l.notes) + '</small>' : '') + '</td>'
+      html += '<tr><td>' + fmtShort(l.date) + '</td><td>' + esc(l.lift) + (l.scaled ? ' <small class="mut">(scaled)</small>' : '') + '</td><td>' + l.kg + ' kg × ' + l.reps + (l.sets > 1 ? ' (' + l.sets + ' sets)' : '') + (l.notes ? '<br><small class="mut">' + esc(l.notes) + '</small>' : '') + '</td>'
         + '<td><button class="del" data-del="' + l.id + '">🗑</button></td></tr>';
     }
     html += '</table></section>';
