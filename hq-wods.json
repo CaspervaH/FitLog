@@ -1,0 +1,379 @@
+{
+  "generated": "2026-10-01T09:42:45.017Z",
+  "wods": [
+    {
+      "id": "260905",
+      "date": "2026-09-05",
+      "weekday": "zaterdag",
+      "name": null,
+      "type": "time",
+      "text": "5 rounds for time of:  \n200-meter run  \n20 air squats  \n20 push-ups  \n20 lunges",
+      "movements": [
+        "push-up",
+        "air squat",
+        "lunge",
+        "run"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260906",
+      "date": "2026-09-06",
+      "weekday": "zondag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260907",
+      "date": "2026-09-07",
+      "weekday": "maandag",
+      "name": null,
+      "type": "load",
+      "text": "Push press 5-5-5-5-5 reps",
+      "movements": [
+        "push press"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260908",
+      "date": "2026-09-08",
+      "weekday": "dinsdag",
+      "name": null,
+      "type": "time",
+      "text": "For time:  \n800-meter run  \n42 kettlebell swings  \n21 kettlebell goblet squats  \n30 kettlebell swings  \n15 kettlebell goblet squats  \n18 kettlebell swings  \n9 kettlebell goblet squats  \n800-meter run\n♀ 53-lb kettlebell  \n♂ 70-lb kettlebell",
+      "movements": [
+        "goblet squat",
+        "kettlebell swing",
+        "run"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260909",
+      "date": "2026-09-09",
+      "weekday": "woensdag",
+      "name": null,
+      "type": "load",
+      "text": "15-12-9 reps for load and time of:  \nHang power cleans  \nBar-facing burpees\nUse the same weight for all three sets.  \nAll hang power clean sets must be unbroken; if you drop the bar, start the set over.",
+      "movements": [
+        "hang power clean",
+        "bar-facing burpee",
+        "burpee"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260910",
+      "date": "2026-09-10",
+      "weekday": "donderdag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260911",
+      "date": "2026-09-11",
+      "weekday": "vrijdag",
+      "name": "Andi",
+      "type": "time",
+      "text": "**Andi**\nFor time:  \n100 hang power snatches  \n100 push presses  \n100 sumo deadlift high pulls  \n100 front squats\n♀ 45-lb barbell  \n♂ 65-lb barbell",
+      "movements": [
+        "sumo deadlift high pull",
+        "hang power snatch",
+        "front squat",
+        "push press",
+        "deadlift"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260912",
+      "date": "2026-09-12",
+      "weekday": "zaterdag",
+      "name": null,
+      "type": "amrap",
+      "text": "Complete as many reps as possible in 12 minutes of:  \n2 wall walks  \n2 legless rope climbs\nAdd 1 wall walk every round.",
+      "movements": [
+        "wall walk",
+        "rope climb"
+      ],
+      "timeDomain": "12 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260913",
+      "date": "2026-09-13",
+      "weekday": "zondag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260914",
+      "date": "2026-09-14",
+      "weekday": "maandag",
+      "name": null,
+      "type": "time",
+      "text": "On a 20-minute clock:\nFrom 0:00-10:00, for time:  \nRun 1,600 meters\n10:00-20:00:  \nBuild to a 5-rep-max bench press",
+      "movements": [
+        "bench press",
+        "run"
+      ],
+      "timeDomain": "20 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260915",
+      "date": "2026-09-15",
+      "weekday": "dinsdag",
+      "name": "Service Cup Workout 2",
+      "type": "amrap",
+      "text": "**Service Cup Workout 2**\nComplete as many reps as possible in 8 minutes of:  \n50-foot back rack lunges  \n25 pull-ups  \n50-foot front rack lunges  \n25 chest-to-bar pull-ups  \n50-foot overhead lunges  \nMax bar muscle-ups\n♀ 80-lb barbell  \n♂ 115-lb barbell",
+      "movements": [
+        "pull-up",
+        "chest-to-bar pull-up",
+        "muscle-up",
+        "lunge"
+      ],
+      "timeDomain": "8 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260916",
+      "date": "2026-09-16",
+      "weekday": "woensdag",
+      "name": "Service Cup Workout 3",
+      "type": "time",
+      "text": "**Service Cup Workout 3**\nPart A  \nOn a 15-minute clock, for time:  \n10 shuttle runs  \n15 clean and jerks  \n10 shuttle runs  \n12 clean and jerks  \n10 shuttle runs  \n9 clean and jerks  \n10 shuttle runs  \n9 clean and jerks\n♀ 95-lb barbell  \n♂ 135-lb barbell\nPart B  \nAt 15 minutes, on a 3-minute clock:  \nBuild to a 1-rep-max clean and jerk",
+      "movements": [
+        "clean and jerk",
+        "run",
+        "shuttle run"
+      ],
+      "timeDomain": "15 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260917",
+      "date": "2026-09-17",
+      "weekday": "donderdag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260918",
+      "date": "2026-09-18",
+      "weekday": "vrijdag",
+      "name": "Service Cup Workout 1",
+      "type": "time",
+      "text": "**Service Cup Workout 1**\nFor time:  \n50 wall-ball shots  \n50 box jump-overs  \n50 wall-ball shots  \n50 medicine-ball box step-overs  \n50 wall-ball shots  \n50 lateral burpee box jump-overs\nTime cap: 25 minutes\n♀ 14-lb medicine ball to a 10-foot target and a 20-inch box  \n♂ 20-lb medicine ball to a 10-foot target and a 24-inch box",
+      "movements": [
+        "medicine-ball box step-over",
+        "lateral burpee box jump-over",
+        "wall-ball shot",
+        "box jump-over",
+        "box step-over",
+        "box jump",
+        "burpee"
+      ],
+      "timeDomain": "25 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260919",
+      "date": "2026-09-19",
+      "weekday": "zaterdag",
+      "name": "Service Cup Workout 4",
+      "type": "time",
+      "text": "**Service Cup Workout 4**\nFor time:  \n100 double-unders  \n50 alternating dumbbell snatches  \n100 double-unders\nTime cap: 5 minutes\n♀ 35-lb dumbbell  \n♂ 50-lb dumbbell",
+      "movements": [
+        "double-under",
+        "snatch"
+      ],
+      "timeDomain": "5 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260920",
+      "date": "2026-09-20",
+      "weekday": "zondag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260921",
+      "date": "2026-09-21",
+      "weekday": "maandag",
+      "name": "Grace",
+      "type": "time",
+      "text": "**Grace**\nFor time:  \n30 clean and jerks\n♀ 95-lb barbell  \n♂ 135-lb barbell",
+      "movements": [
+        "clean and jerk"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260922",
+      "date": "2026-09-22",
+      "weekday": "dinsdag",
+      "name": null,
+      "type": "time",
+      "text": "3 rounds for time of:  \n15 thrusters  \n15 pull-ups  \n400-meter run\n♀ 65-lb barbell  \n♂ 95-lb barbell",
+      "movements": [
+        "pull-up",
+        "thruster",
+        "run"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260923",
+      "date": "2026-09-23",
+      "weekday": "woensdag",
+      "name": null,
+      "type": "reps",
+      "text": "On a 15-minute clock, complete:  \n100 burpees*  \nMax shuttle box jump-overs in the remaining time\n*Every minute, starting at 0:00, complete 4 shuttle box jump-overs.\n♀ 20-inch box  \n♂ 24-inch box",
+      "movements": [
+        "shuttle box jump-over",
+        "box jump-over",
+        "box jump",
+        "burpee"
+      ],
+      "timeDomain": "15 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260924",
+      "date": "2026-09-24",
+      "weekday": "donderdag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260925",
+      "date": "2026-09-25",
+      "weekday": "vrijdag",
+      "name": null,
+      "type": "amrap",
+      "text": "Complete as many rounds and reps as possible in 20 minutes of:  \n30-foot handstand walk  \n250-meter row  \n3 L-sit muscle-ups  \n250-meter row",
+      "movements": [
+        "handstand walk",
+        "muscle-up",
+        "row"
+      ],
+      "timeDomain": "20 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260926",
+      "date": "2026-09-26",
+      "weekday": "zaterdag",
+      "name": null,
+      "type": "load",
+      "text": "7 sets for load of:  \n1 hang power snatch  \n1 overhead squat  \n1 hang squat snatch\nIncrease load each set.\n**Post-Workout Challenge**\n3 sets:  \n1 hang power snatch  \n1 overhead squat  \n1 hang squat snatch",
+      "movements": [
+        "hang power snatch",
+        "hang squat snatch",
+        "overhead squat"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260927",
+      "date": "2026-09-27",
+      "weekday": "zondag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260928",
+      "date": "2026-09-28",
+      "weekday": "maandag",
+      "name": null,
+      "type": "time",
+      "text": "Every 6 minutes for 6 rounds:  \n800-meter run\nYour score is the total time for all six runs added together.",
+      "movements": [
+        "run"
+      ],
+      "timeDomain": "6 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260929",
+      "date": "2026-09-29",
+      "weekday": "dinsdag",
+      "name": null,
+      "type": "time",
+      "text": "7 rounds for time of:  \n7 thrusters  \n7 sumo deadlift high pulls  \n7 handstand push-ups\n♀ 65-lb barbell  \n♂ 95-lb barbell",
+      "movements": [
+        "sumo deadlift high pull",
+        "handstand push-up",
+        "push-up",
+        "deadlift",
+        "thruster"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260930",
+      "date": "2026-09-30",
+      "weekday": "woensdag",
+      "name": "Olympic Total",
+      "type": "load",
+      "text": "**Olympic Total**\nSnatch 1-1-1-1-1 reps  \nClean and jerk 1-1-1-1-1 reps",
+      "movements": [
+        "clean and jerk",
+        "snatch"
+      ],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "261001",
+      "date": "2026-10-01",
+      "weekday": "donderdag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    }
+  ]
+}

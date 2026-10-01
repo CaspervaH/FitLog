@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitLog — CrossFit logboek</title>
+<style>
+:root{--green:#2e7d32;--green-l:#e8f5e9;--ink:#1b1b1b;--mut:#6b7268;--bg:#f6f7f5;--card:#fff;--line:#e2e5e0;--red:#c62828;--gold:#b8860b}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--green);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+header h1{margin:0;font-size:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:.95rem}
+.tabs button.on{background:#fff;color:var(--green);font-weight:700}
+main{max-width:860px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+h2{margin:0 0 10px;font-size:1.15rem}
+h3{margin:14px 0 8px;font-size:1rem}
+.mut{color:var(--mut)}
+.chip{display:inline-block;background:var(--green-l);color:var(--green);border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:600;margin-left:6px}
+.chip.src{background:#eef1f7;color:#3b4a86}
+.dayhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dayhead .date{font-size:1.35rem;font-weight:700}
+.dayhead .wd{color:var(--mut);font-size:.95rem}
+.nav{display:flex;gap:6px;align-items:center}
+.nav button{font-size:1.3rem;background:var(--card);border:1px solid var(--line);border-radius:10px;width:44px;height:44px;cursor:pointer}
+.nav a{font-size:.85rem;color:var(--green)}
+.wod-text{white-space:pre-line;background:var(--green-l);border-radius:10px;padding:12px 14px;font-size:1.02rem}
+label{display:block;font-weight:600;font-size:.85rem;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>div{flex:1;min-width:120px}
+button.save{background:var(--green);color:#fff;border:0;border-radius:10px;padding:12px 18px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px}
+.toggle{display:flex;gap:0;margin-top:10px}
+.toggle button{flex:1;padding:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:600;color:var(--mut)}
+.toggle button:first-child{border-radius:8px 0 0 8px}
+.toggle button:last-child{border-radius:0 8px 8px 0}
+.toggle button.on.rx{background:var(--green);color:#fff;border-color:var(--green)}
+.toggle button.on.sc{background:#ef6c00;color:#fff;border-color:#ef6c00}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:.8rem;text-transform:uppercase;color:var(--mut);letter-spacing:.03em}
+.pr{color:var(--gold);font-weight:700}
+.del{background:none;border:0;color:var(--red);cursor:pointer;font-size:1rem;padding:2px 6px}
+.result{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;background:#fffdf5}
+.result .score{font-weight:700}
+.sim{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin-top:8px}
+.sim .pct{color:var(--green);font-weight:700}
+.msg{background:var(--green-l);color:var(--green);border-radius:10px;padding:10px 12px;font-weight:600;margin-top:10px}
+.rest{background:#eef1f7;color:#3b4a86;border-radius:12px;padding:24px;text-align:center;font-size:1.05rem}
+small.hint{color:var(--mut)}
+@media(max-width:520px){main{padding:10px}.dayhead{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏋️ FitLog</h1>
+  <nav class="tabs" id="tabs">
+    <button data-v="wod" class="on">📅 WOD</button>
+    <button data-v="bench">Benchmark</button>
+    <button data-v="lift">Lifting</button>
+    <button data-v="log">WOD-log</button>
+  </nav>
+</header>
+<main id="app"></main>
+<script>
+'use strict';
+
+// Ingebakken HQ-WOD's; bij het opstarten wordt ook hq-wods.json naast de app
+// geladen (GitHub Action houdt dat bestand dagelijks actueel).
+const BUILTIN_WODS = /*__WODS__*/[{"id":"260905","date":"2026-09-05","weekday":"zaterdag","name":null,"type":"time","text":"5 rounds for time of:  \n200-meter run  \n20 air squats  \n20 push-ups  \n20 lunges","movements":["push-up","air squat","lunge","run"],"timeDomain":null,"source":"crossfit.com"},{"id":"260906","date":"2026-09-06","weekday":"zondag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260907","date":"2026-09-07","weekday":"maandag","name":null,"type":"load","text":"Push press 5-5-5-5-5 reps","movements":["push press"],"timeDomain":null,"source":"crossfit.com"},{"id":"260908","date":"2026-09-08","weekday":"dinsdag","name":null,"type":"time","text":"For time:  \n800-meter run  \n42 kettlebell swings  \n21 kettlebell goblet squats  \n30 kettlebell swings  \n15 kettlebell goblet squats  \n18 kettlebell swings  \n9 kettlebell goblet squats  \n800-meter run\n♀ 53-lb kettlebell  \n♂ 70-lb kettlebell","movements":["goblet squat","kettlebell swing","run"],"timeDomain":null,"source":"crossfit.com"},{"id":"260909","date":"2026-09-09","weekday":"woensdag","name":null,"type":"load","text":"15-12-9 reps for load and time of:  \nHang power cleans  \nBar-facing burpees\nUse the same weight for all three sets.  \nAll hang power clean sets must be unbroken; if you drop the bar, start the set over.","movements":["hang power clean","bar-facing burpee","burpee"],"timeDomain":null,"source":"crossfit.com"},{"id":"260910","date":"2026-09-10","weekday":"donderdag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260911","date":"2026-09-11","weekday":"vrijdag","name":"Andi","type":"time","text":"**Andi**\nFor time:  \n100 hang power snatches  \n100 push presses  \n100 sumo deadlift high pulls  \n100 front squats\n♀ 45-lb barbell  \n♂ 65-lb barbell","movements":["sumo deadlift high pull","hang power snatch","front squat","push press","deadlift"],"timeDomain":null,"source":"crossfit.com"},{"id":"260912","date":"2026-09-12","weekday":"zaterdag","name":null,"type":"amrap","text":"Complete as many reps as possible in 12 minutes of:  \n2 wall walks  \n2 legless rope climbs\nAdd 1 wall walk every round.","movements":["wall walk","rope climb"],"timeDomain":"12 min","source":"crossfit.com"},{"id":"260913","date":"2026-09-13","weekday":"zondag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260914","date":"2026-09-14","weekday":"maandag","name":null,"type":"time","text":"On a 20-minute clock:\nFrom 0:00-10:00, for time:  \nRun 1,600 meters\n10:00-20:00:  \nBuild to a 5-rep-max bench press","movements":["bench press","run"],"timeDomain":"20 min","source":"crossfit.com"},{"id":"260915","date":"2026-09-15","weekday":"dinsdag","name":"Service Cup Workout 2","type":"amrap","text":"**Service Cup Workout 2**\nComplete as many reps as possible in 8 minutes of:  \n50-foot back rack lunges  \n25 pull-ups  \n50-foot front rack lunges  \n25 chest-to-bar pull-ups  \n50-foot overhead lunges  \nMax bar muscle-ups\n♀ 80-lb barbell  \n♂ 115-lb barbell","movements":["pull-up","chest-to-bar pull-up","muscle-up","lunge"],"timeDomain":"8 min","source":"crossfit.com"},{"id":"260916","date":"2026-09-16","weekday":"woensdag","name":"Service Cup Workout 3","type":"time","text":"**Service Cup Workout 3**\nPart A  \nOn a 15-minute clock, for time:  \n10 shuttle runs  \n15 clean and jerks  \n10 shuttle runs  \n12 clean and jerks  \n10 shuttle runs  \n9 clean and jerks  \n10 shuttle runs  \n9 clean and jerks\n♀ 95-lb barbell  \n♂ 135-lb barbell\nPart B  \nAt 15 minutes, on a 3-minute clock:  \nBuild to a 1-rep-max clean and jerk","movements":["clean and jerk","run","shuttle run"],"timeDomain":"15 min","source":"crossfit.com"},{"id":"260917","date":"2026-09-17","weekday":"donderdag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260918","date":"2026-09-18","weekday":"vrijdag","name":"Service Cup Workout 1","type":"time","text":"**Service Cup Workout 1**\nFor time:  \n50 wall-ball shots  \n50 box jump-overs  \n50 wall-ball shots  \n50 medicine-ball box step-overs  \n50 wall-ball shots  \n50 lateral burpee box jump-overs\nTime cap: 25 minutes\n♀ 14-lb medicine ball to a 10-foot target and a 20-inch box  \n♂ 20-lb medicine ball to a 10-foot target and a 24-inch box","movements":["medicine-ball box step-over","lateral burpee box jump-over","wall-ball shot","box jump-over","box step-over","box jump","burpee"],"timeDomain":"25 min","source":"crossfit.com"},{"id":"260919","date":"2026-09-19","weekday":"zaterdag","name":"Service Cup Workout 4","type":"time","text":"**Service Cup Workout 4**\nFor time:  \n100 double-unders  \n50 alternating dumbbell snatches  \n100 double-unders\nTime cap: 5 minutes\n♀ 35-lb dumbbell  \n♂ 50-lb dumbbell","movements":["double-under","snatch"],"timeDomain":"5 min","source":"crossfit.com"},{"id":"260920","date":"2026-09-20","weekday":"zondag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260921","date":"2026-09-21","weekday":"maandag","name":"Grace","type":"time","text":"**Grace**\nFor time:  \n30 clean and jerks\n♀ 95-lb barbell  \n♂ 135-lb barbell","movements":["clean and jerk"],"timeDomain":null,"source":"crossfit.com"},{"id":"260922","date":"2026-09-22","weekday":"dinsdag","name":null,"type":"time","text":"3 rounds for time of:  \n15 thrusters  \n15 pull-ups  \n400-meter run\n♀ 65-lb barbell  \n♂ 95-lb barbell","movements":["pull-up","thruster","run"],"timeDomain":null,"source":"crossfit.com"},{"id":"260923","date":"2026-09-23","weekday":"woensdag","name":null,"type":"reps","text":"On a 15-minute clock, complete:  \n100 burpees*  \nMax shuttle box jump-overs in the remaining time\n*Every minute, starting at 0:00, complete 4 shuttle box jump-overs.\n♀ 20-inch box  \n♂ 24-inch box","movements":["shuttle box jump-over","box jump-over","box jump","burpee"],"timeDomain":"15 min","source":"crossfit.com"},{"id":"260924","date":"2026-09-24","weekday":"donderdag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260925","date":"2026-09-25","weekday":"vrijdag","name":null,"type":"amrap","text":"Complete as many rounds and reps as possible in 20 minutes of:  \n30-foot handstand walk  \n250-meter row  \n3 L-sit muscle-ups  \n250-meter row","movements":["handstand walk","muscle-up","row"],"timeDomain":"20 min","source":"crossfit.com"},{"id":"260926","date":"2026-09-26","weekday":"zaterdag","name":null,"type":"load","text":"7 sets for load of:  \n1 hang power snatch  \n1 overhead squat  \n1 hang squat snatch\nIncrease load each set.\n**Post-Workout Challenge**\n3 sets:  \n1 hang power snatch  \n1 overhead squat  \n1 hang squat snatch","movements":["hang power snatch","hang squat snatch","overhead squat"],"timeDomain":null,"source":"crossfit.com"},{"id":"260927","date":"2026-09-27","weekday":"zondag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"},{"id":"260928","date":"2026-09-28","weekday":"maandag","name":null,"type":"time","text":"Every 6 minutes for 6 rounds:  \n800-meter run\nYour score is the total time for all six runs added together.","movements":["run"],"timeDomain":"6 min","source":"crossfit.com"},{"id":"260929","date":"2026-09-29","weekday":"dinsdag","name":null,"type":"time","text":"7 rounds for time of:  \n7 thrusters  \n7 sumo deadlift high pulls  \n7 handstand push-ups\n♀ 65-lb barbell  \n♂ 95-lb barbell","movements":["sumo deadlift high pull","handstand push-up","push-up","deadlift","thruster"],"timeDomain":null,"source":"crossfit.com"},{"id":"260930","date":"2026-09-30","weekday":"woensdag","name":"Olympic Total","type":"load","text":"**Olympic Total**\nSnatch 1-1-1-1-1 reps  \nClean and jerk 1-1-1-1-1 reps","movements":["clean and jerk","snatch"],"timeDomain":null,"source":"crossfit.com"},{"id":"261001","date":"2026-10-01","weekday":"donderdag","name":null,"type":"rest","text":"Rest day","movements":[],"timeDomain":null,"source":"crossfit.com"}];
+
+const LS_KEY = 'fitlog.v1';
+
+const DAY_NL = ['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'];
+const MON_NL = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+
+// 30 benchmark-WOD's (The Girls + Heroes), gestructureerd opgeslagen.
+const BENCHMARKS = [
+ {n:'Fran',t:'time',td:'~5 min',m:['thruster','pull-up'],x:'21-15-9 thrusters (♂ 42,5 kg / ♀ 30 kg) & pull-ups'},
+ {n:'Grace',t:'time',td:'~5 min',m:['clean and jerk'],x:'30 clean & jerks (♂ 60 kg / ♀ 43 kg)'},
+ {n:'Helen',t:'time',td:'~10 min',m:['run','kettlebell swing','pull-up'],x:'3 rounds: 400 m run, 21 kettlebell swings (♂ 24 kg / ♀ 17 kg), 12 pull-ups'},
+ {n:'Diane',t:'time',td:'~10 min',m:['deadlift','handstand push-up'],x:'21-15-9 deadlifts (♂ 100 kg / ♀ 70 kg) & handstand push-ups'},
+ {n:'Elizabeth',t:'time',td:'~10 min',m:['clean','ring dip'],x:'21-15-9 cleans (♂ 61 kg / ♀ 43 kg) & ring dips'},
+ {n:'Karen',t:'time',td:'~10 min',m:['wall-ball shot'],x:'150 wall-ball shots (♂ 9 kg / ♀ 6 kg)'},
+ {n:'Cindy',t:'amrap',td:'20 min',m:['pull-up','push-up','air squat'],x:'AMRAP 20 min: 5 pull-ups, 10 push-ups, 15 air squats'},
+ {n:'Chelsea',t:'amrap',td:'30 min',m:['pull-up','push-up','air squat'],x:'AMRAP 30 min (EMOM): 5 pull-ups, 10 push-ups, 15 air squats'},
+ {n:'Mary',t:'amrap',td:'20 min',m:['handstand push-up','pistol','pull-up'],x:'AMRAP 20 min: 5 handstand push-ups, 10 pistols, 15 pull-ups'},
+ {n:'Barbara',t:'time',td:'~30 min',m:['pull-up','push-up','sit-up','air squat'],x:'5 rounds (3 min rust): 20 pull-ups, 30 push-ups, 40 sit-ups, 50 air squats'},
+ {n:'Angie',t:'time',td:'~20 min',m:['pull-up','push-up','sit-up','air squat'],x:'100 pull-ups, 100 push-ups, 100 sit-ups, 100 air squats'},
+ {n:'Annie',t:'time',td:'~10 min',m:['double-under','sit-up'],x:'50-40-30-20-10 double-unders & sit-ups'},
+ {n:'Jackie',t:'time',td:'~10 min',m:['row','thruster','pull-up'],x:'1000 m roeien, 50 thrusters (♂ 20 kg / ♀ 15 kg), 30 pull-ups'},
+ {n:'Nancy',t:'time',td:'~15 min',m:['run','overhead squat'],x:'5 rounds: 400 m run, 15 overhead squats (♂ 20 kg / ♀ 15 kg)'},
+ {n:'Isabel',t:'time',td:'~5 min',m:['snatch'],x:'30 snatches (♂ 61 kg / ♀ 43 kg)'},
+ {n:'Amanda',t:'time',td:'~8 min',m:['snatch','muscle-up'],x:'9-7-5 snatches (♂ 43 kg / ♀ 30 kg) & muscle-ups'},
+ {n:'Lynne',t:'reps',td:'—',m:['bench press','pull-up'],x:'5 rounds: max-rep bench press (♀ bodyweight / ♂ 1,5× bodyweight) & max-rep pull-ups'},
+ {n:'Nicole',t:'amrap',td:'20 min',m:['run','pull-up'],x:'AMRAP 20 min: 400 m run + max pull-ups'},
+ {n:'Kelly',t:'time',td:'~25 min',m:['run','box jump','wall-ball shot'],x:'5 rounds: 400 m run, 30 box jumps (♂ 60 cm / ♀ 45 cm), 30 wall-ball shots'},
+ {n:'Eva',t:'time',td:'~45 min',m:['run','kettlebell swing','pull-up'],x:'5 rounds: 800 m run, 30 kettlebell swings (♂ 32 kg / ♀ 24 kg), 30 pull-ups'},
+ {n:'Murph',t:'time',td:'~45 min',m:['run','pull-up','push-up','air squat'],x:'1600 m run, 100 pull-ups, 200 push-ups, 300 air squats, 1600 m run (vest 9/6 kg)'},
+ {n:'DT',t:'time',td:'~10 min',m:['deadlift','hang power clean','push jerk'],x:'5 rounds: 12 deadlifts (♂ 70 kg / ♀ 50 kg), 9 hang power cleans, 21 push jerks'},
+ {n:'Randy',t:'time',td:'~8 min',m:['snatch'],x:'75 snatches (♂ 35 kg / ♀ 25 kg)'},
+ {n:'Nate',t:'amrap',td:'20 min',m:['muscle-up','handstand push-up','kettlebell swing'],x:'AMRAP 20 min: 2 muscle-ups, 4 handstand push-ups, 8 kettlebell swings (♂ 24 kg / ♀ 17 kg)'},
+ {n:'Daniel',t:'time',td:'~20 min',m:['pull-up','run','thruster'],x:'50 pull-ups, 400 m run, 95 thrusters (♂ 43 kg / ♀ 30 kg), 400 m run, 50 pull-ups'},
+ {n:'Josh',t:'time',td:'~15 min',m:['overhead squat','run'],x:'21-15-9 overhead squats (♂ 61 kg / ♀ 43 kg), tussendoor 400 m run'},
+ {n:'Chad',t:'time',td:'—',m:['box step-over'],x:'1000 step-ups op 45 cm box met vest (♂ 20 kg / ♀ 9 kg)'},
+ {n:'Whitten',t:'time',td:'—',m:['kettlebell swing','sit-up','box jump','run'],x:'5 rounds: 15 kettlebell swings (♂ 24 kg / ♀ 16 kg), 15 GHD sit-ups, 15 back extensions, 15 box jumps, 400 m run'},
+ {n:'Badger',t:'time',td:'~35 min',m:['deadlift','burpee','run'],x:'3 rounds: 30 squat cleans (♂ 61 kg / ♀ 43 kg), 30 burpees, 800 m run'},
+ {n:'Severin',t:'time',td:'—',m:['burpee','run'],x:'10 rounds: 30 burpees, 400 m run'}
+];
+
+const LIFT_SUGGEST = ['back squat','front squat','overhead squat','deadlift','sumo deadlift high pull','snatch','power snatch','hang power snatch','hang squat snatch','clean','power clean','hang power clean','squat clean','clean and jerk','push jerk','split jerk','bench press','push press','shoulder press','thruster','overhead press'];
+
+// ---------- state & opslag ----------
+let state = load();
+let HQ_WODS = [...BUILTIN_WODS];
+
+function load(){
+  try{
+    const s = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+    return {
+      results: Array.isArray(s.results) ? s.results : [],
+      lifts: Array.isArray(s.lifts) ? s.lifts : [],
+      view: 'wod',
+      date: todayISO()
+    };
+  }catch(e){ return {results:[],lifts:[],view:'wod',date:todayISO()}; }
+}
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify({results:state.results, lifts:state.lifts})); }
+
+function todayISO(){ const d = new Date(); return iso(d); }
+function iso(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function fromISO(s){ const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
+function addDays(s, n){ const d = fromISO(s); d.setDate(d.getDate()+n); return iso(d); }
+function fmtDate(s){ const d = fromISO(s); return DAY_NL[d.getDay()] + ' ' + d.getDate() + ' ' + MON_NL[d.getMonth()] + ' ' + d.getFullYear(); }
+function fmtShort(s){ const d = fromISO(s); return d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getFullYear(); }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// ---------- HQ-WOD's ----------
+function loadHqWods(){
+  fetch('hq-wods.json')
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('http '+r.status)))
+    .then(j => {
+      const list = Array.isArray(j) ? j : (Array.isArray(j.wods) ? j.wods : []);
+      if(list.length){
+        HQ_WODS = list;
+        if(state.view === 'wod') render();
+      }
+    })
+    .catch(()=>{ /* offline/lokaal: ingebakken data volstaat */ });
+}
+function hqWod(dateISO){
+  const key = dateISO.slice(2,4) + dateISO.slice(5,7) + dateISO.slice(8,10);
+  return HQ_WODS.find(w => String(w.id) === key) || HQ_WODS.find(w => w.date === dateISO) || null;
+}
+
+// ---------- scores ----------
+function scoreSeconds(r){ return (r.min||0)*60 + (r.sec||0); }
+function scoreLabel(r){
+  if(!r) return '—';
+  const t = r.type;
+  if(t === 'time') return (r.min||0) + ':' + String(r.sec||0).padStart(2,'0');
+  if(t === 'amrap') return (r.rounds||0) + ' rondes' + (r.reps ? ' + ' + r.reps + ' reps' : '');
+  if(t === 'load') return (r.kg||0) + ' kg';
+  if(t === 'reps') return (r.reps||0) + ' reps';
+  return r.txt || '—';
+}
+function isBetter(a, b){
+  if(!b) return true;
+  const t = a.type;
+  if(t === 'time') return scoreSeconds(a) < scoreSeconds(b);
+  if(t === 'amrap') return ((a.rounds||0)*100 + (a.reps||0)) > ((b.rounds||0)*100 + (b.reps||0));
+  if(t === 'load') return (a.kg||0) > (b.kg||0);
+  if(t === 'reps') return (a.reps||0) > (b.reps||0);
+  return false;
+}
+function bestOf(results){
+  let best = null;
+  for(const r of results) if(isBetter(r, best)) best = r;
+  return best;
+}
+function resultsFor(name){ return state.results.filter(r => r.wodName === name); }
+
+// Vergelijkbaarheid: % bewegingsoverlap t.o.v. de referentie-WOD.
+function similarity(wod, other){
+  const a = wod.movements || [], b = other.movements || [];
+  if(!a.length || !b.length) return 0;
+  const setB = new Set(b);
+  const overlap = a.filter(m => setB.has(m)).length;
+  return Math.round(100 * overlap / a.length);
+}
+
+// ---------- render ----------
+const app = document.getElementById('app');
+function setView(v){ state.view = v; render(); }
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button[data-v]');
+  if(b) setView(b.dataset.v);
+});
+
+function render(){
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.v === state.view));
+  if(state.view === 'wod') renderWod();
+  else if(state.view === 'bench') renderBench();
+  else if(state.view === 'lift') renderLift();
+  else renderLog();
+}
+
+// ===== 📅 WOD (startpagina) =====
+function renderWod(){
+  const d = state.date;
+  const isToday = d === todayISO();
+  const w = hqWod(d);
+  let html = '';
+  html += '<section class="card"><div class="dayhead">'
+    + '<div><div class="wd">' + (isToday ? 'Vandaag' : '&nbsp;') + '</div><div class="date">' + fmtDate(d) + '</div></div>'
+    + '<div class="nav"><button id="prev" title="Vorige dag">‹</button>'
+    + '<button id="next" title="Volgende dag">›</button>'
+    + (isToday ? '' : '<a href="#" id="backToday">↩ terug naar vandaag</a>')
+    + '</div></div></section>';
+
+  if(w && w.type === 'rest'){
+    html += '<section class="card"><div class="rest">😴 Rustdag</div></section>';
+  } else if(w){
+    html += '<section class="card"><h2>WOD' + (w.name ? ' — ' + esc(w.name) : '') + '<span class="chip src">' + esc(w.source || 'crossfit.com') + '</span></h2>'
+      + '<div class="wod-text">' + esc(w.text) + '</div>'
+      + (w.timeDomain ? '<p class="mut" style="margin:8px 0 0">Tijdsdomein: ' + esc(w.timeDomain) + '</p>' : '')
+      + '</section>';
+    html += historyHtml(w, d);
+    html += similarHtml(w, d);
+    html += formHtml(w.name || 'HQ WOD', w.type, w.text, w.movements, w.timeDomain);
+  } else {
+    html += '<section class="card"><div class="rest">Geen HQ-WOD bekend voor deze datum.</div>'
+      + '<label for="wodName">WOD-naam (optioneel, bijv. je box-WOD)</label>'
+      + '<input id="wodName" placeholder="bv. Fran of eigen box-WOD">'
+      + '<label for="wodText">Omschrijving</label>'
+      + '<textarea id="wodText" rows="3" placeholder="Wat stond er op het bord?"></textarea>'
+      + '<label for="wodType">Score-type</label>'
+      + '<select id="wodType"><option value="time">Voor tijd</option><option value="amrap">AMRAP</option><option value="load">Max load</option><option value="reps">Max reps</option><option value="other">Anders</option></select>'
+      + '</section>';
+    html += '<section class="card"><h3>Resultaat invoeren</h3>'
+      + '<div class="toggle" id="lvlToggle"><button type="button" data-lvl="rx" class="on rx">Rx\u2019d</button><button type="button" data-lvl="sc" class="sc">Scaled</button></div>'
+      + '<div id="scoreFields"></div>'
+      + '<label for="fnotes">Scaling / notities</label>'
+      + '<textarea id="fnotes" rows="2" placeholder="bijv. 40 kg thrusters, jumping pull-ups"></textarea>'
+      + '<button class="save" id="saveBtn">Opslaan</button><div id="formMsg"></div></section>';
+  }
+  app.innerHTML = html;
+  document.getElementById('prev').onclick = () => { state.date = addDays(d, -1); render(); };
+  document.getElementById('next').onclick = () => { state.date = addDays(d, 1); render(); };
+  const bt = document.getElementById('backToday');
+  if(bt) bt.onclick = e => { e.preventDefault(); state.date = todayISO(); render(); };
+  if(!w || w.type !== 'rest'){
+    bindForm();
+    if(!w){
+      const typeSel = document.getElementById('wodType');
+      const fields = document.getElementById('scoreFields');
+      const draw = () => { fields.innerHTML = scoreFieldsHtml(typeSel.value); bindScaledToggle(); };
+      typeSel.onchange = draw; draw();
+    }
+  }
+}
+
+function historyHtml(w, dateISO){
+  const name = w.name || 'HQ WOD';
+  const sameDay = state.results.filter(r => r.date === dateISO);
+  const byName = w.name ? resultsFor(w.name).filter(r => r.date !== dateISO) : [];
+  const prevBest = byName.length ? bestOf(byName) : null;
+  let html = '';
+  if(sameDay.length || prevBest){
+    html += '<section class="card"><h3>Eerdere resultaten</h3>';
+    for(const r of sameDay){
+      html += '<div class="result"><span class="score">' + scoreLabel(r) + '</span> — ' + (r.scaled ? 'Scaled' : "Rx'd")
+        + (r.notes ? ' · <span class="mut">' + esc(r.notes) + '</span>' : '') + '</div>';
+    }
+    if(prevBest){
+      html += '<div class="result">Je hebt <strong>' + esc(w.name) + '</strong> eerder gedaan — beste score: <span class="score">'
+        + scoreLabel(prevBest) + '</span> (' + (prevBest.scaled ? 'Scaled' : "Rx'd") + ', ' + fmtShort(prevBest.date) + ')</div>';
+    }
+    html += '</section>';
+  }
+  return html;
+}
+
+function similarHtml(w, dateISO){
+  const name = w.name || 'HQ WOD';
+  const sims = [];
+  for(const r of state.results){
+    if(r.date === dateISO) continue;
+    if(w.name && r.wodName === w.name) continue;
+    const pct = similarity(w, r);
+    if(pct >= 50) sims.push({r, pct});
+  }
+  sims.sort((a,b) => b.pct - a.pct || (a.r.date < b.r.date ? 1 : -1));
+  if(!sims.length) return '';
+  const rows = sims.slice(0, 6).map(s =>
+    '<tr><td>' + fmtShort(s.r.date) + '</td><td>' + esc(s.r.wodName) + '</td><td><span class="pct">' + s.pct + '%</span></td><td>'
+    + scoreLabel(s.r) + '</td><td>' + (s.r.scaled ? 'Scaled' : "Rx'd") + '</td></tr>').join('');
+  return '<section class="card"><h3>Vergelijkbare WOD\u2019s uit je historie</h3>'
+    + '<table><tr><th>Datum</th><th>WOD</th><th>Overlap</th><th>Resultaat</th><th>Level</th></tr>' + rows + '</table>'
+    + '<small class="hint">Overlap = deel van de bewegingen van deze WOD dat ook in die WOD voorkomt.</small></section>';
+}
+
+function scoreFieldsHtml(type){
+  if(type === 'time') return '<div class="row"><div><label for="fmin">Minuten</label><input id="fmin" type="number" min="0" inputmode="numeric"></div>'
+    + '<div><label for="fsec">Seconden</label><input id="fsec" type="number" min="0" max="59" inputmode="numeric"></div></div>';
+  if(type === 'amrap') return '<div class="row"><div><label for="frounds">Rondes</label><input id="frounds" type="number" min="0" inputmode="numeric"></div>'
+    + '<div><label for="freps">Extra reps</label><input id="freps" type="number" min="0" inputmode="numeric"></div></div>';
+  if(type === 'load') return '<div><label for="fkg">Kilogram</label><input id="fkg" type="number" min="0" step="0.5" inputmode="decimal"></div>';
+  if(type === 'reps') return '<div><label for="freps">Reps</label><input id="freps" type="number" min="0" inputmode="numeric"></div>';
+  return '<div><label for="ftxt">Score (vrije tekst)</label><input id="ftxt" placeholder="bijv. 3 rondes + time cap gehaald"></div>';
+}
+
+function formHtml(name, type, text, movements, td){
+  return '<section class="card"><h3>Resultaat invoeren</h3>'
+    + '<input type="hidden" id="formMode" value="hq">'
+    + '<input type="hidden" id="wodName" value="' + esc(name) + '">'
+    + '<input type="hidden" id="wodText" value="' + esc(text) + '">'
+    + '<input type="hidden" id="wodType" value="' + esc(type) + '">'
+    + '<input type="hidden" id="wodMovs" value="' + esc((movements||[]).join(',')) + '">'
+    + '<input type="hidden" id="wodTd" value="' + esc(td || '') + '">'
+    + '<div class="toggle" id="lvlToggle"><button type="button" data-lvl="rx" class="on rx">Rx\u2019d</button><button type="button" data-lvl="sc" class="sc">Scaled</button></div>'
+    + '<div id="scoreFields">' + scoreFieldsHtml(type) + '</div>'
+    + '<label for="fnotes">Scaling / notities</label>'
+    + '<textarea id="fnotes" rows="2" placeholder="bijv. 40 kg thrusters, jumping pull-ups"></textarea>'
+    + '<button class="save" id="saveBtn">Opslaan</button><div id="formMsg"></div></section>';
+}
+
+function bindScaledToggle(){
+  const tog = document.getElementById('lvlToggle');
+  if(!tog) return;
+  tog.querySelectorAll('button').forEach(b => b.onclick = () => {
+    tog.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+  });
+}
+
+function readForm(){
+  const type = document.getElementById('wodType').value;
+  const nameEl = document.getElementById('wodName');
+  const name = nameEl.value.trim() || 'WOD ' + fmtShort(state.date);
+  const text = (document.getElementById('wodText').value || '').trim();
+  const movements = (document.getElementById('wodMovs') ? document.getElementById('wodMovs').value : '')
+    .split(',').map(s => s.trim()).filter(Boolean);
+  const td = document.getElementById('wodTd') ? document.getElementById('wodTd').value : '';
+  const lvls = document.querySelectorAll('#lvlToggle button.on');
+  const scaled = lvls.length ? lvls[0].dataset.lvl === 'sc' : false;
+  const notes = (document.getElementById('fnotes').value || '').trim();
+  const r = { id: uid(), date: state.date, wodName: name, wodText: text, movements, type, timeDomain: td, scaled, notes };
+  if(type === 'time'){ r.min = Number(document.getElementById('fmin').value || 0); r.sec = Number(document.getElementById('fsec').value || 0); }
+  else if(type === 'amrap'){ r.rounds = Number(document.getElementById('frounds').value || 0); r.reps = Number(document.getElementById('freps').value || 0); }
+  else if(type === 'load'){ r.kg = Number(document.getElementById('fkg').value || 0); }
+  else if(type === 'reps'){ r.reps = Number(document.getElementById('freps').value || 0); }
+  else { r.txt = document.getElementById('ftxt').value.trim(); }
+  return r;
+}
+
+function bindForm(){
+  bindScaledToggle();
+  document.getElementById('saveBtn').onclick = () => {
+    const r = readForm();
+    const earlier = resultsFor(r.wodName).filter(x => x.date !== r.date);
+    const prevBest = bestOf(earlier);
+    const isPR = !prevBest ? true : isBetter(r, prevBest);
+    state.results.push(r);
+    save();
+    render();
+    const msg = document.getElementById('formMsg');
+    if(msg && isPR && earlier.length){
+      msg.innerHTML = '<div class="msg">🏆 Nieuwe PR! Vorige beste: ' + scoreLabel(prevBest) + '</div>';
+      msg.scrollIntoView({block:'nearest'});
+    } else if(msg){
+      msg.innerHTML = '<div class="msg">Opgeslagen' + (isPR && !earlier.length ? ' — eerste keer deze WOD, dat is meteen je PR!' : '') + '</div>';
+    }
+  };
+}
+
+// ===== Benchmark =====
+function renderBench(){
+  let html = '<section class="card"><h2>Benchmark-WOD\u2019s &amp; PR\u2019s</h2>'
+    + '<table><tr><th>WOD</th><th>Type</th><th>PR</th><th>Level</th><th>Datum</th><th>× gedaan</th><th></th></tr>';
+  for(const b of BENCHMARKS){
+    const rs = resultsFor(b.n);
+    const best = rs.length ? bestOf(rs) : null;
+    html += '<tr><td><strong>' + b.n + '</strong></td><td class="mut">' + typeLabel(b.t) + '</td>'
+      + (best ? '<td><span class="pr">' + scoreLabel(best) + '</span></td><td>' + (best.scaled ? 'Scaled' : "Rx'd") + '</td><td>' + fmtShort(best.date) + '</td><td>' + rs.length + '×</td>'
+             : '<td class="mut">—</td><td class="mut">—</td><td class="mut">—</td><td class="mut">0×</td>')
+      + '</tr>';
+  }
+  html += '</table></section>';
+  html += '<section class="card"><h3>Benchmark-omschrijvingen</h3>';
+  for(const b of BENCHMARKS){
+    html += '<h3>' + b.n + ' <span class="chip">' + (b.td || typeLabel(b.t)) + '</span></h3><div class="wod-text">' + esc(b.x) + '</div>'
+      + '<p class="mut" style="margin:6px 0 0;font-size:.85rem">Bewegingen: ' + esc(b.m.join(', ')) + '</p>';
+  }
+  html += '</section>';
+  app.innerHTML = html;
+}
+function typeLabel(t){
+  return {time:'voor tijd', amrap:'AMRAP', load:'max load', reps:'max reps', other:'anders', rest:'rustdag'}[t] || t;
+}
+
+// ===== Lifting =====
+function renderLift(){
+  const byLift = {};
+  for(const l of state.lifts){ (byLift[l.lift] = byLift[l.lift] || []).push(l); }
+  let html = '<section class="card"><h2>Lifting loggen</h2>'
+    + '<div class="row"><div><label for="lName">Oefening</label><input id="lName" list="liftList" placeholder="bv. back squat"></div>'
+    + '<div><label for="lKg">Kilogram</label><input id="lKg" type="number" min="0" step="0.5" inputmode="decimal"></div>'
+    + '<div><label for="lReps">Reps</label><input id="lReps" type="number" min="1" inputmode="numeric"></div></div>'
+    + '<datalist id="liftList">' + LIFT_SUGGEST.map(l => '<option value="' + esc(l) + '">').join('') + '</datalist>'
+    + '<button class="save" id="liftBtn">Log lift</button></section>';
+  html += '<section class="card"><h2>PR-overzicht</h2>';
+  const names = Object.keys(byLift);
+  if(!names.length) html += '<p class="mut">Nog geen lifts gelogd.</p>';
+  else{
+    html += '<table><tr><th>Oefening</th><th>Zwaarste set</th><th>Geschatte 1RM</th><th>Echte 1RM</th><th>Sessions</th></tr>';
+    for(const n of names.sort()){
+      const ls = byLift[n];
+      const heaviest = ls.reduce((a,b) => (b.kg > a.kg ? b : a), ls[0]);
+      const est1rm = Math.max(...ls.map(l => l.reps === 1 ? l.kg : l.kg * (1 + l.reps/30)));
+      const real1rm = ls.filter(l => l.reps === 1).reduce((a,b) => Math.max(a,b.kg), 0);
+      html += '<tr><td><strong>' + esc(n) + '</strong></td><td>' + heaviest.kg + ' kg × ' + heaviest.reps + '</td>'
+        + '<td>' + est1rm.toFixed(1) + ' kg</td><td>' + (real1rm ? real1rm + ' kg' : '<span class="mut">—</span>') + '</td><td>' + ls.length + '</td></tr>';
+    }
+    html += '</table><small class="hint">Geschatte 1RM via Epley: gewicht × (1 + reps/30).</small>';
+  }
+  html += '</section>';
+  const recent = [...state.lifts].sort((a,b) => a.date < b.date ? 1 : -1).slice(0, 15);
+  if(recent.length){
+    html += '<section class="card"><h3>Recente lifts</h3><table><tr><th>Datum</th><th>Oefening</th><th>Set</th><th></th></tr>';
+    for(const l of recent){
+      html += '<tr><td>' + fmtShort(l.date) + '</td><td>' + esc(l.lift) + '</td><td>' + l.kg + ' kg × ' + l.reps + '</td>'
+        + '<td><button class="del" data-del="' + l.id + '">🗑</button></td></tr>';
+    }
+    html += '</table></section>';
+  }
+  app.innerHTML = html;
+  document.getElementById('liftBtn').onclick = () => {
+    const n = document.getElementById('lName').value.trim();
+    const kg = Number(document.getElementById('lKg').value || 0);
+    const reps = Number(document.getElementById('lReps').value || 0);
+    if(!n || !kg || !reps){ alert('Vul oefening, kilo\u2019s en reps in.'); return; }
+    state.lifts.push({id: uid(), date: todayISO(), lift: n, kg, reps});
+    save(); renderLift();
+  };
+  app.querySelectorAll('button[data-del]').forEach(b => b.onclick = () => {
+    state.lifts = state.lifts.filter(l => l.id !== b.dataset.del);
+    save(); renderLift();
+  });
+}
+
+// ===== WOD-log =====
+function renderLog(){
+  const q = (window.__logQ || '').toLowerCase();
+  const rs = [...state.results].sort((a,b) => a.date < b.date ? 1 : -1)
+    .filter(r => !q || r.wodName.toLowerCase().includes(q) || (r.notes||'').toLowerCase().includes(q));
+  let html = '<section class="card"><h2>WOD-log</h2>'
+    + '<div class="row"><div><label for="logQ">Zoeken</label><input id="logQ" value="' + esc(window.__logQ || '') + '" placeholder="WOD-naam of notitie"></div></div>'
+    + '<p class="mut">' + state.results.length + ' resultaten</p>';
+  if(rs.length){
+    html += '<table><tr><th>Datum</th><th>WOD</th><th>Resultaat</th><th>Level</th><th></th></tr>';
+    for(const r of rs){
+      html += '<tr><td>' + fmtShort(r.date) + '</td><td><strong>' + esc(r.wodName) + '</strong><br><small class="mut">' + esc((r.wodText||'').split('\n')[0].slice(0,60)) + '</small></td>'
+        + '<td class="pr">' + scoreLabel(r) + '</td><td>' + (r.scaled ? 'Scaled' : "Rx'd") + '</td>'
+        + '<td><button class="del" data-del="' + r.id + '">🗑</button></td></tr>';
+    }
+    html += '</table>';
+  } else html += '<p class="mut">Nog niets gelogd.</p>';
+  html += '</section>';
+  html += '<section class="card"><h3>Backup</h3><div class="row">'
+    + '<div><button class="save" id="expBtn">⬇ Export (JSON)</button></div>'
+    + '<div><label for="impFile">⬆ Import</label><input id="impFile" type="file" accept="application/json"></div></div>'
+    + '<small class="hint">De export bevat je resultaten, lifts en WOD-geschiedenis.</small></section>';
+  app.innerHTML = html;
+  document.getElementById('logQ').oninput = e => { window.__logQ = e.target.value; renderLog(); document.getElementById('logQ').focus(); };
+  app.querySelectorAll('button[data-del]').forEach(b => b.onclick = () => {
+    state.results = state.results.filter(r => r.id !== b.dataset.del);
+    save(); renderLog();
+  });
+  document.getElementById('expBtn').onclick = () => {
+    const blob = new Blob([JSON.stringify({app:'fitlog', version:1, exported:new Date().toISOString(), results:state.results, lifts:state.lifts}, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'fitlog-backup-' + todayISO() + '.json';
+    a.click();
+  };
+  document.getElementById('impFile').onchange = e => {
+    const f = e.target.files[0];
+    if(!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try{
+        const j = JSON.parse(rd.result);
+        let nr = [], nl = [];
+        if(Array.isArray(j.results)) nr = j.results;                     // fitlog-formaat
+        else if(Array.isArray(j)) nr = j;                                // oude export: platte lijst resultaten
+        if(Array.isArray(j.lifts)) nl = j.lifts;
+        const have = new Set(state.results.map(r => r.date + '|' + r.wodName + '|' + scoreLabel(r)));
+        for(const r of nr){ if(!have.has(r.date + '|' + r.wodName + '|' + scoreLabel(r))) state.results.push(r); }
+        for(const l of nl) state.lifts.push(l);
+        save(); renderLog();
+      }catch(err){ alert('Ongeldig back-upbestand: ' + err.message); }
+    };
+    rd.readAsText(f);
+  };
+}
+
+// ---------- start ----------
+loadHqWods();
+render();
+</script>
+</body>
+</html>

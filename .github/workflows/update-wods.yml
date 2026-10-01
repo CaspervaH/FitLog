@@ -1,0 +1,26 @@
+name: Update HQ WODs
+
+on:
+  schedule:
+    - cron: '30 4 * * *'  # dagelijks 04:30 UTC (~06:30 NL-tijd, na publicatie HQ-WOD)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/scrape-wods.mjs
+      - name: Commit indien gewijzigd
+        run: |
+          git config user.name "fitlog-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add hq-wods.json
+          git diff --cached --quiet || git commit -m "chore: HQ-WOD's bijwerken van crossfit.com"
+          git push
