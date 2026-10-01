@@ -1,0 +1,1553 @@
+{
+  "app": "fitlog",
+  "version": 1,
+  "exported": "2026-10-01T10:04:08.774Z",
+  "results": [
+    {
+      "id": "imp-001",
+      "date": "2026-09-22",
+      "wodName": "Grace",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "40",
+      "min": 4,
+      "sec": 11
+    },
+    {
+      "id": "imp-002",
+      "date": "2026-09-21",
+      "wodName": "260921",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "40kg",
+      "min": 4,
+      "sec": 11
+    },
+    {
+      "id": "imp-004",
+      "date": "2026-09-09",
+      "wodName": "260909",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "5:48",
+      "kg": 45
+    },
+    {
+      "id": "imp-006",
+      "date": "2026-09-07",
+      "wodName": "260907",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "laatste twee sets 55 geprobeerd maar 4 en 3 keer gehaald",
+      "kg": 50
+    },
+    {
+      "id": "imp-007",
+      "date": "2026-08-31",
+      "wodName": "260831",
+      "wodText": "",
+      "movements": [],
+      "type": "amrap",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "rounds": 3,
+      "reps": 240
+    },
+    {
+      "id": "imp-011",
+      "date": "2026-07-15",
+      "wodName": "260715",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg. techniek kon beter",
+      "min": 6,
+      "sec": 26
+    },
+    {
+      "id": "imp-013",
+      "date": "2026-07-06",
+      "wodName": "260706",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg",
+      "min": 13,
+      "sec": 42
+    },
+    {
+      "id": "imp-015",
+      "date": "2026-06-29",
+      "wodName": "260629",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg 10 herhalingen van de laatste set burpees (110 herhalingen)",
+      "min": 12,
+      "sec": 0
+    },
+    {
+      "id": "imp-017",
+      "date": "2026-06-14",
+      "wodName": "260614",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "2x20 plates\n60-70-80-85kg\nknees to elbow",
+      "reps": 4
+    },
+    {
+      "id": "imp-023",
+      "date": "2026-06-07",
+      "wodName": "260607",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30-32-34-37-40 kg",
+      "min": 10,
+      "sec": 0
+    },
+    {
+      "id": "imp-024",
+      "date": "2026-05-31",
+      "wodName": "260531",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "bijna knees to elbow en niet zo ver wall walken",
+      "min": 22,
+      "sec": 5
+    },
+    {
+      "id": "imp-025",
+      "date": "2026-05-27",
+      "wodName": "260527",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "70kg in plaats van 82,5-85???",
+      "min": 8,
+      "sec": 50
+    },
+    {
+      "id": "imp-029",
+      "date": "2026-03-23",
+      "wodName": "260323",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "kg": 53
+    },
+    {
+      "id": "imp-031",
+      "date": "2026-03-18",
+      "wodName": "260318",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "20kg. kipping pull-ups",
+      "reps": 104
+    },
+    {
+      "id": "imp-032",
+      "date": "2026-03-16",
+      "wodName": "TOPSY",
+      "wodText": "",
+      "movements": [],
+      "type": "amrap",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg - ring muscle up transitions",
+      "rounds": 9,
+      "reps": 13
+    },
+    {
+      "id": "imp-033",
+      "date": "2026-03-15",
+      "wodName": "260315",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "32 kg\nshoulder taps vanuit wall walk\npike push up (benen ver naar achter)\nhand release push ups",
+      "min": 18,
+      "sec": 20
+    },
+    {
+      "id": "imp-036",
+      "date": "2026-03-09",
+      "wodName": "260309",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "60-45-45",
+      "kg": 150
+    },
+    {
+      "id": "imp-037",
+      "date": "2026-03-06",
+      "wodName": "OPEN WORKOUT 26.2",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "17,5kg\noveral pull-ups gedaan (niet allemaal kin boven bar)\n101reps (alleen laatste pull-ups niet)",
+      "min": 15,
+      "sec": 0
+    },
+    {
+      "id": "imp-039",
+      "date": "2026-02-27",
+      "wodName": "OPEN WORKOUT 26.1",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "reps": 202
+    },
+    {
+      "id": "imp-040",
+      "date": "2026-02-23",
+      "wodName": "260223",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "handstand hold \nen 2x2rondjes rennen en pull-ups",
+      "reps": 150
+    },
+    {
+      "id": "imp-041",
+      "date": "2026-02-22",
+      "wodName": "260222",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "kipping pull-up en single unders",
+      "min": 9,
+      "sec": 30
+    },
+    {
+      "id": "imp-042",
+      "date": "2026-02-19",
+      "wodName": "260219",
+      "wodText": "",
+      "movements": [],
+      "type": "other",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "roeien",
+      "txt": "8000,00 m"
+    },
+    {
+      "id": "imp-044",
+      "date": "2026-02-04",
+      "wodName": "260204",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "40kg en GHB sit ups soms niet helemaal schouders onder de heupen",
+      "min": 9,
+      "sec": 59
+    },
+    {
+      "id": "imp-045",
+      "date": "2026-02-02",
+      "wodName": "260202",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "min": 14,
+      "sec": 42
+    },
+    {
+      "id": "imp-046",
+      "date": "2026-01-30",
+      "wodName": "260130",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "16kg",
+      "min": 15,
+      "sec": 59
+    },
+    {
+      "id": "imp-047",
+      "date": "2026-01-26",
+      "wodName": "260126",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "22,5 kg en pull-ups. 50-75% hoog genoeg?",
+      "min": 6,
+      "sec": 57
+    },
+    {
+      "id": "imp-050",
+      "date": "2026-01-21",
+      "wodName": "260121",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "27kg",
+      "min": 12,
+      "sec": 31
+    },
+    {
+      "id": "imp-051",
+      "date": "2026-01-14",
+      "wodName": "260114",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "one leg squat met voet achter staande voet",
+      "min": 16,
+      "sec": 15
+    },
+    {
+      "id": "imp-052",
+      "date": "2026-01-12",
+      "wodName": "260112",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "43x12,5kg db bench press; alle push ups op de knieën. laatste ring push ups ook beetje schuin",
+      "min": 20,
+      "sec": 16
+    },
+    {
+      "id": "imp-054",
+      "date": "2026-01-09",
+      "wodName": "260109",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "40kg. single unders",
+      "min": 14,
+      "sec": 18
+    },
+    {
+      "id": "imp-055",
+      "date": "2026-01-02",
+      "wodName": "Diane",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "80kg pike push up",
+      "min": 8,
+      "sec": 34
+    },
+    {
+      "id": "imp-056",
+      "date": "2025-12-29",
+      "wodName": "Front rack reverse lunge",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "kg": 65
+    },
+    {
+      "id": "imp-057",
+      "date": "2025-12-29",
+      "wodName": "241229 / 251229",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "kg": 65
+    },
+    {
+      "id": "imp-058",
+      "date": "2025-12-24",
+      "wodName": "251224",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "28kg en single unders",
+      "min": 7,
+      "sec": 38
+    },
+    {
+      "id": "imp-061",
+      "date": "2025-12-22",
+      "wodName": "251222",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "50 - 45 - 52",
+      "kg": 147
+    },
+    {
+      "id": "imp-064",
+      "date": "2025-12-21",
+      "wodName": "251221",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg. tijd is gokje, niet gekeken",
+      "min": 10,
+      "sec": 0
+    },
+    {
+      "id": "imp-065",
+      "date": "2025-12-19",
+      "wodName": "251219",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "min": 14,
+      "sec": 50
+    },
+    {
+      "id": "imp-066",
+      "date": "2025-12-10",
+      "wodName": "251210",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "en nog 42 push press 15kg in plaats van hspu",
+      "reps": 105
+    },
+    {
+      "id": "imp-067",
+      "date": "2025-12-07",
+      "wodName": "251207",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "109 herh 30kg tot over de 1m tegel lijn wall walk",
+      "min": 12,
+      "sec": 0
+    },
+    {
+      "id": "imp-068",
+      "date": "2025-12-05",
+      "wodName": "251205",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "min": 19,
+      "sec": 12
+    },
+    {
+      "id": "imp-069",
+      "date": "2025-11-28",
+      "wodName": "251128",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "pull-up bar niet hoog genoeg",
+      "min": 15,
+      "sec": 12
+    },
+    {
+      "id": "imp-074",
+      "date": "2025-11-26",
+      "wodName": "251126",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "kg": 60
+    },
+    {
+      "id": "imp-075",
+      "date": "2025-11-23",
+      "wodName": "251123",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "60kg",
+      "reps": 4070
+    },
+    {
+      "id": "imp-076",
+      "date": "2025-11-19",
+      "wodName": "251119",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "40kg push jerk",
+      "min": 16,
+      "sec": 51
+    },
+    {
+      "id": "imp-081",
+      "date": "2025-11-14",
+      "wodName": "251114",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "35kg push press. 3 rondes en 10 med ball cleans",
+      "min": 10,
+      "sec": 0
+    },
+    {
+      "id": "imp-083",
+      "date": "2025-11-09",
+      "wodName": "251109",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "45kg",
+      "reps": 100
+    },
+    {
+      "id": "imp-084",
+      "date": "2025-11-05",
+      "wodName": "Diane",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "70kg. pike push up knie op box",
+      "min": 8,
+      "sec": 0
+    },
+    {
+      "id": "imp-085",
+      "date": "2025-10-31",
+      "wodName": "251031",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg",
+      "reps": 2700
+    },
+    {
+      "id": "imp-086",
+      "date": "2025-10-27",
+      "wodName": "251027",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "17,5kg",
+      "reps": 81
+    },
+    {
+      "id": "imp-087",
+      "date": "2025-04-16",
+      "wodName": "ANDI",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "20kg\ndeadlifts in plaats van front squats ivm knie",
+      "min": 24,
+      "sec": 21
+    },
+    {
+      "id": "imp-088",
+      "date": "2025-04-09",
+      "wodName": "250409",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "push jerk 15kg\nsuitcase 22,5kg",
+      "reps": 6
+    },
+    {
+      "id": "imp-089",
+      "date": "2025-04-07",
+      "wodName": "250407",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "tijd niet gekeken\n2x17,5 kg box step up 30cm ivm knie\nknee to armpit",
+      "min": 13,
+      "sec": 0
+    },
+    {
+      "id": "imp-091",
+      "date": "2025-03-26",
+      "wodName": "250326",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "25 kilo\nover de bar stappen in plaats van springen in verband met knie",
+      "min": 10,
+      "sec": 13
+    },
+    {
+      "id": "imp-092",
+      "date": "2025-03-24",
+      "wodName": "Fran",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "35kg hang clean en press\n50-75% boven de bar uit met kipping pull-ups",
+      "min": 9,
+      "sec": 0
+    },
+    {
+      "id": "imp-093",
+      "date": "2025-03-19",
+      "wodName": "250319",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "reps": 67
+    },
+    {
+      "id": "imp-094",
+      "date": "2025-03-12",
+      "wodName": "250312",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "pike push ups. wel rx gewicht",
+      "min": 10,
+      "sec": 0
+    },
+    {
+      "id": "imp-095",
+      "date": "2025-03-07",
+      "wodName": "OPEN 22.3 / 25.2",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "pull-ups met 1 voet op hoge box\nsingle unders\nplate to overhead in plaats van thrusters. 20 -25 -25",
+      "min": 11,
+      "sec": 28
+    },
+    {
+      "id": "imp-097",
+      "date": "2024-12-22",
+      "wodName": "ADMIRAL ACKBAR",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "bezig met laatste burpees. 6/30. 10kg",
+      "min": 12,
+      "sec": 0
+    },
+    {
+      "id": "imp-100",
+      "date": "2024-12-18",
+      "wodName": "FIRE!!!",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "45kg",
+      "min": 7,
+      "sec": 59
+    },
+    {
+      "id": "imp-102",
+      "date": "2024-12-15",
+      "wodName": "Christine",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "70kg",
+      "min": 11,
+      "sec": 44
+    },
+    {
+      "id": "imp-106",
+      "date": "2024-12-08",
+      "wodName": "241208",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "40kg\nmuscle up dips en optrekken met voeten aan de grond",
+      "reps": 116
+    },
+    {
+      "id": "imp-107",
+      "date": "2024-12-04",
+      "wodName": "OPEN 24.1",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "16kg",
+      "min": 14,
+      "sec": 27
+    },
+    {
+      "id": "imp-108",
+      "date": "2024-11-27",
+      "wodName": "241127",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "20kg KB",
+      "min": 10,
+      "sec": 56
+    },
+    {
+      "id": "imp-111",
+      "date": "2024-11-24",
+      "wodName": "240510",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "45kg",
+      "min": 4,
+      "sec": 44
+    },
+    {
+      "id": "imp-113",
+      "date": "2024-11-20",
+      "wodName": "241120",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "kg": 40
+    },
+    {
+      "id": "imp-115",
+      "date": "2024-11-08",
+      "wodName": "HALF OPEN 20.1",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "35kg power snatches\nronde 5 - 4 snatches",
+      "min": 8,
+      "sec": 0
+    },
+    {
+      "id": "imp-116",
+      "date": "2024-11-06",
+      "wodName": "241106",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "2x22,5kg",
+      "min": 8,
+      "sec": 33
+    },
+    {
+      "id": "imp-117",
+      "date": "2024-10-27",
+      "wodName": "241027",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "12,5kg\nknee raises",
+      "min": 11,
+      "sec": 51
+    },
+    {
+      "id": "imp-119",
+      "date": "2024-10-16",
+      "wodName": "Fran",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "jumping box pull ups\n21 x barbell 30kg\nde rest dumbells 20kg",
+      "min": 7,
+      "sec": 40
+    },
+    {
+      "id": "imp-120",
+      "date": "2024-10-13",
+      "wodName": "241013",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "reps": 164
+    },
+    {
+      "id": "imp-121",
+      "date": "2024-10-09",
+      "wodName": "241009",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "min": 9,
+      "sec": 0
+    },
+    {
+      "id": "imp-123",
+      "date": "2024-10-06",
+      "wodName": "241006",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "reps": 82
+    },
+    {
+      "id": "imp-126",
+      "date": "2024-09-27",
+      "wodName": "240927",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "min": 8,
+      "sec": 50
+    },
+    {
+      "id": "imp-127",
+      "date": "2024-09-23",
+      "wodName": "240923",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "reps": 530
+    },
+    {
+      "id": "imp-129",
+      "date": "2024-09-15",
+      "wodName": "HOLD PLEASE...",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "min": 20,
+      "sec": 0
+    },
+    {
+      "id": "imp-130",
+      "date": "2024-09-13",
+      "wodName": "MY DIAMOND SHOES ARE TOO TIGHT",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "reps": 31
+    },
+    {
+      "id": "imp-132",
+      "date": "2023-08-17",
+      "wodName": "2016 REGIONALS EVENT 7 SC",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "30kg",
+      "min": 9,
+      "sec": 37
+    },
+    {
+      "id": "imp-133",
+      "date": "2023-08-01",
+      "wodName": "230801",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "min": 11,
+      "sec": 59
+    },
+    {
+      "id": "imp-135",
+      "date": "2023-06-30",
+      "wodName": "CONDITIONING CHALLANGE",
+      "wodText": "",
+      "movements": [],
+      "type": "other",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "txt": "5317,00 m"
+    },
+    {
+      "id": "imp-139",
+      "date": "2023-05-17",
+      "wodName": "SWING WALL-BALL BIKE",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "min": 18,
+      "sec": 53
+    },
+    {
+      "id": "imp-142",
+      "date": "2023-05-10",
+      "wodName": "Bike 10K",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "min": 17,
+      "sec": 24
+    },
+    {
+      "id": "imp-145",
+      "date": "2023-03-20",
+      "wodName": "230320",
+      "wodText": "",
+      "movements": [],
+      "type": "amrap",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "",
+      "rounds": 5,
+      "reps": 11
+    },
+    {
+      "id": "imp-148",
+      "date": "2023-02-01",
+      "wodName": "230201",
+      "wodText": "",
+      "movements": [],
+      "type": "load",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "kg": 50
+    },
+    {
+      "id": "imp-149",
+      "date": "2023-01-11",
+      "wodName": "230111",
+      "wodText": "",
+      "movements": [],
+      "type": "time",
+      "timeDomain": "",
+      "scaled": true,
+      "notes": "20kg",
+      "min": 14,
+      "sec": 46
+    },
+    {
+      "id": "imp-150",
+      "date": "2022-12-29",
+      "wodName": "221229",
+      "wodText": "",
+      "movements": [],
+      "type": "reps",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "reps": 315
+    },
+    {
+      "id": "imp-151",
+      "date": "2022-12-14",
+      "wodName": "221214",
+      "wodText": "",
+      "movements": [],
+      "type": "amrap",
+      "timeDomain": "",
+      "scaled": false,
+      "notes": "",
+      "rounds": 7,
+      "reps": 0
+    }
+  ],
+  "lifts": [
+    {
+      "id": "imp-003",
+      "date": "2026-09-09",
+      "lift": "hang power clean",
+      "kg": 45,
+      "reps": 15
+    },
+    {
+      "id": "imp-005",
+      "date": "2026-09-07",
+      "lift": "push press",
+      "kg": 55,
+      "reps": 3
+    },
+    {
+      "id": "imp-008",
+      "date": "2026-07-15",
+      "lift": "push press",
+      "kg": 50,
+      "reps": 2
+    },
+    {
+      "id": "imp-009",
+      "date": "2026-07-15",
+      "lift": "front squat",
+      "kg": 50,
+      "reps": 2
+    },
+    {
+      "id": "imp-010",
+      "date": "2026-07-15",
+      "lift": "thruster",
+      "kg": 50,
+      "reps": 2
+    },
+    {
+      "id": "imp-012",
+      "date": "2026-07-06",
+      "lift": "power snatch",
+      "kg": 45,
+      "reps": 1
+    },
+    {
+      "id": "imp-014",
+      "date": "2026-06-29",
+      "lift": "thruster",
+      "kg": 47.5,
+      "reps": 1
+    },
+    {
+      "id": "imp-016",
+      "date": "2026-06-14",
+      "lift": "deadlift",
+      "kg": 85,
+      "reps": 5
+    },
+    {
+      "id": "imp-018",
+      "date": "2026-06-07",
+      "lift": "front squat",
+      "kg": 30,
+      "reps": 20
+    },
+    {
+      "id": "imp-019",
+      "date": "2026-06-07",
+      "lift": "front squat",
+      "kg": 32,
+      "reps": 16
+    },
+    {
+      "id": "imp-020",
+      "date": "2026-06-07",
+      "lift": "front squat",
+      "kg": 34,
+      "reps": 12
+    },
+    {
+      "id": "imp-021",
+      "date": "2026-06-07",
+      "lift": "front squat",
+      "kg": 37,
+      "reps": 8
+    },
+    {
+      "id": "imp-022",
+      "date": "2026-06-07",
+      "lift": "front squat",
+      "kg": 40,
+      "reps": 4
+    },
+    {
+      "id": "imp-026",
+      "date": "2026-03-23",
+      "lift": "split jerk",
+      "kg": 53,
+      "reps": 1
+    },
+    {
+      "id": "imp-027",
+      "date": "2026-03-23",
+      "lift": "push press",
+      "kg": 55,
+      "reps": 3
+    },
+    {
+      "id": "imp-028",
+      "date": "2026-03-23",
+      "lift": "push jerk",
+      "kg": 53,
+      "reps": 2
+    },
+    {
+      "id": "imp-030",
+      "date": "2026-03-18",
+      "lift": "overhead squat",
+      "kg": 30,
+      "reps": 10
+    },
+    {
+      "id": "imp-034",
+      "date": "2026-03-09",
+      "lift": "squat snatch",
+      "kg": 45,
+      "reps": 1
+    },
+    {
+      "id": "imp-035",
+      "date": "2026-03-09",
+      "lift": "hang squat snatch",
+      "kg": 45,
+      "reps": 1
+    },
+    {
+      "id": "imp-038",
+      "date": "2026-03-04",
+      "lift": "back squat",
+      "kg": 55,
+      "reps": 8
+    },
+    {
+      "id": "imp-043",
+      "date": "2026-02-05",
+      "lift": "power snatch",
+      "kg": 40,
+      "reps": 15
+    },
+    {
+      "id": "imp-048",
+      "date": "2026-01-21",
+      "lift": "shoulder press",
+      "kg": 45,
+      "reps": 2
+    },
+    {
+      "id": "imp-049",
+      "date": "2026-01-21",
+      "lift": "shoulder press",
+      "kg": 45,
+      "reps": 2
+    },
+    {
+      "id": "imp-053",
+      "date": "2026-01-09",
+      "lift": "front squat",
+      "kg": 45,
+      "reps": 5
+    },
+    {
+      "id": "imp-059",
+      "date": "2025-12-22",
+      "lift": "power snatch",
+      "kg": 52,
+      "reps": 1
+    },
+    {
+      "id": "imp-060",
+      "date": "2025-12-22",
+      "lift": "hang power snatch",
+      "kg": 45,
+      "reps": 1
+    },
+    {
+      "id": "imp-062",
+      "date": "2025-12-21",
+      "lift": "thruster",
+      "kg": 35,
+      "reps": 4
+    },
+    {
+      "id": "imp-063",
+      "date": "2025-12-21",
+      "lift": "thruster",
+      "kg": 30,
+      "reps": 7
+    },
+    {
+      "id": "imp-070",
+      "date": "2025-11-26",
+      "lift": "power clean",
+      "kg": 60,
+      "reps": 1
+    },
+    {
+      "id": "imp-071",
+      "date": "2025-11-26",
+      "lift": "hang power clean",
+      "kg": 60,
+      "reps": 1
+    },
+    {
+      "id": "imp-072",
+      "date": "2025-11-26",
+      "lift": "power clean",
+      "kg": 60,
+      "reps": 3
+    },
+    {
+      "id": "imp-073",
+      "date": "2025-11-26",
+      "lift": "hang power clean",
+      "kg": 60,
+      "reps": 2
+    },
+    {
+      "id": "imp-077",
+      "date": "2025-11-15",
+      "lift": "push press",
+      "kg": 35,
+      "reps": 10
+    },
+    {
+      "id": "imp-078",
+      "date": "2025-11-15",
+      "lift": "push press",
+      "kg": 35,
+      "reps": 10
+    },
+    {
+      "id": "imp-079",
+      "date": "2025-11-15",
+      "lift": "push press",
+      "kg": 35,
+      "reps": 10
+    },
+    {
+      "id": "imp-080",
+      "date": "2025-11-15",
+      "lift": "push jerk",
+      "kg": 40,
+      "reps": 5
+    },
+    {
+      "id": "imp-082",
+      "date": "2025-11-12",
+      "lift": "bench press",
+      "kg": 58,
+      "reps": 1
+    },
+    {
+      "id": "imp-090",
+      "date": "2025-04-02",
+      "lift": "power clean",
+      "kg": 55,
+      "reps": 1
+    },
+    {
+      "id": "imp-096",
+      "date": "2025-02-26",
+      "lift": "deadlift",
+      "kg": 95,
+      "reps": 4
+    },
+    {
+      "id": "imp-098",
+      "date": "2024-12-19",
+      "lift": "overhead squat",
+      "kg": 40,
+      "reps": 5
+    },
+    {
+      "id": "imp-099",
+      "date": "2024-12-18",
+      "lift": "clean & jerk",
+      "kg": 45,
+      "reps": 20
+    },
+    {
+      "id": "imp-101",
+      "date": "2024-12-15",
+      "lift": "deadlift",
+      "kg": 70,
+      "reps": 12
+    },
+    {
+      "id": "imp-103",
+      "date": "2024-12-11",
+      "lift": "thruster",
+      "kg": 57.5,
+      "reps": 1
+    },
+    {
+      "id": "imp-104",
+      "date": "2024-12-11",
+      "lift": "thruster",
+      "kg": 34,
+      "reps": 21
+    },
+    {
+      "id": "imp-105",
+      "date": "2024-12-09",
+      "lift": "hang power clean",
+      "kg": 40,
+      "reps": 12
+    },
+    {
+      "id": "imp-109",
+      "date": "2024-11-24",
+      "lift": "front squat",
+      "kg": 50,
+      "reps": 3
+    },
+    {
+      "id": "imp-110",
+      "date": "2024-11-24",
+      "lift": "hang power clean",
+      "kg": 50,
+      "reps": 3
+    },
+    {
+      "id": "imp-112",
+      "date": "2024-11-20",
+      "lift": "hang power snatch",
+      "kg": 40,
+      "reps": 3
+    },
+    {
+      "id": "imp-114",
+      "date": "2024-11-14",
+      "lift": "bench press",
+      "kg": 48,
+      "reps": 6
+    },
+    {
+      "id": "imp-118",
+      "date": "2024-10-16",
+      "lift": "thruster",
+      "kg": 30,
+      "reps": 21
+    },
+    {
+      "id": "imp-122",
+      "date": "2024-10-06",
+      "lift": "power clean",
+      "kg": 45,
+      "reps": 3
+    },
+    {
+      "id": "imp-124",
+      "date": "2024-10-02",
+      "lift": "back squat",
+      "kg": 45,
+      "reps": 5
+    },
+    {
+      "id": "imp-125",
+      "date": "2024-09-30",
+      "lift": "push jerk",
+      "kg": 35,
+      "reps": 1
+    },
+    {
+      "id": "imp-128",
+      "date": "2024-09-17",
+      "lift": "hang power clean",
+      "kg": 35,
+      "reps": 5
+    },
+    {
+      "id": "imp-131",
+      "date": "2023-10-03",
+      "lift": "back squat",
+      "kg": 60,
+      "reps": 1
+    },
+    {
+      "id": "imp-134",
+      "date": "2023-07-05",
+      "lift": "shoulder press",
+      "kg": 38,
+      "reps": 1
+    },
+    {
+      "id": "imp-136",
+      "date": "2023-06-28",
+      "lift": "back squat",
+      "kg": 40,
+      "reps": 1
+    },
+    {
+      "id": "imp-137",
+      "date": "2023-06-21",
+      "lift": "bench press",
+      "kg": 23,
+      "reps": 1
+    },
+    {
+      "id": "imp-138",
+      "date": "2023-05-21",
+      "lift": "push press",
+      "kg": 40,
+      "reps": 1
+    },
+    {
+      "id": "imp-140",
+      "date": "2023-05-17",
+      "lift": "hang power clean",
+      "kg": 43,
+      "reps": 1
+    },
+    {
+      "id": "imp-141",
+      "date": "2023-05-14",
+      "lift": "deadlift",
+      "kg": 90,
+      "reps": 1
+    },
+    {
+      "id": "imp-143",
+      "date": "2023-04-19",
+      "lift": "power snatch",
+      "kg": 47,
+      "reps": 1
+    },
+    {
+      "id": "imp-144",
+      "date": "2023-04-01",
+      "lift": "power snatch",
+      "kg": 37,
+      "reps": 1
+    },
+    {
+      "id": "imp-146",
+      "date": "2023-02-23",
+      "lift": "power clean",
+      "kg": 45,
+      "reps": 1
+    },
+    {
+      "id": "imp-147",
+      "date": "2023-02-20",
+      "lift": "deadlift",
+      "kg": 60,
+      "reps": 1
+    }
+  ]
+}
