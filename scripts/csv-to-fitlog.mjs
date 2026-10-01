@@ -122,13 +122,34 @@ for (const r of rows) {
   results.push(res);
 }
 
+// Herken paren: een datumcode-WOD (bv. '260921') en een benchmark-WOD met
+// dezelfde score binnen 1 dag zijn dezelfde workout -> samenvoegen onder de naam.
+const BENCHMARKS = new Set(['grace','fran','diane','christine','annie','karen','barbara','chelsea','cindy','elizabeth','linda','mary','nancy','selena','helena','kelly','jackie','isabel','ava','carol','chad','whitten','badger','severin','nate','daniel','josh','dt','randy','murph','eva','topsy','andi']);
+const isDateCode = n => /^\d{2}\d{2}\d{2}(\/ ?\d{2}\d{2}\d{2})?$/.test(n);
+const scoreKey = r => [r.type, r.min, r.sec, r.rounds, r.reps, r.kg, r.txt].join('|');
+const dayDiff = (a, b) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
+const merged = [];
+const used = new Set();
+for (const code of results.filter(r => isDateCode(r.wodName))) {
+  const twin = results.find(r => !used.has(r.id) && !isDateCode(r.wodName)
+    && BENCHMARKS.has(r.wodName.toLowerCase())
+    && scoreKey(r) === scoreKey(code) && Math.abs(dayDiff(r.date, code.date)) <= 1);
+  if (twin) {
+    used.add(twin.id); used.add(code.id);
+    merged.push({ ...code, wodName: twin.wodName, notes: [code.notes, twin.notes].filter(Boolean).join(' | ') });
+    console.log('Samengevoegd: ' + code.wodName + ' + ' + twin.wodName + ' (' + code.date + ') -> ' + twin.wodName);
+  }
+}
+const finalResults = results.filter(r => !used.has(r.id)).concat(merged)
+  .sort((a, b) => (a.date < b.date ? 1 : -1));
+
 const out = {
   app: 'fitlog',
   version: 1,
   exported: new Date().toISOString(),
-  results,
+  results: finalResults,
   lifts,
 };
 writeFileSync(output, JSON.stringify(out, null, 2) + '\n');
-console.log(`results: ${results.length}, lifts: ${lifts.length}`);
+console.log(`results: ${finalResults.length}, lifts: ${lifts.length}`);
 for (const w of warnings) console.log('WAARSCHUWING: ' + w);
