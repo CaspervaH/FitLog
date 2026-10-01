@@ -88,6 +88,26 @@ const header = rows.shift().map(h => h.trim().toLowerCase());
 const idx = {};
 for (const [i, h] of header.entries()) idx[h] = i;
 
+// Omschrijvingen van bekende WOD's (benchmarks + Open); gebruikt om geïmporteerde
+// resultaten zonder omschrijving alsnog van tekst te voorzien.
+const WOD_TEXTS = {
+  fran: '21-15-9 thrusters (\u2642 42,5 kg / \u2640 30 kg) & pull-ups',
+  diane: '21-15-9 deadlifts (\u2642 100 kg / \u2640 70 kg) & handstand push-ups',
+  grace: '30 clean & jerks (\u2642 60 kg / \u2640 43 kg)',
+  andi: 'For time: 100 hang power snatches, 100 push presses, 100 sumo deadlift high pulls, 100 front squats (\u2640 20 kg / \u2642 30 kg)',
+  topsy: 'AMRAP 25 min: 3 ring muscle-ups, 8 thrusters (\u2642 42,5 kg / \u2640 30 kg), 17-calorie roeien',
+  christine: '3 rondes voor tijd: 500 m roeien, 12 deadlifts (lichaamsgewicht), 21 box jumps (\u2642 60 cm / \u2640 50 cm)',
+  'open 20.1': '10 rondes voor tijd: 8 bar-facing burpees, 10 dumbbell snatches (\u2642 22,5 kg / \u2640 15 kg). Time cap: 15 min',
+  'half open 20.1': 'Helft van Open 20.1: 5 rondes van 8 bar-facing burpees en 10 dumbbell snatches (\u2642 22,5 kg / \u2640 15 kg)',
+  'open 22.3': 'Voor tijd: 21 pull-ups, 42 double-unders, 21 thrusters (\u2642 42,5 kg / \u2640 30 kg) \u00b7 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (\u2642 52,5 kg / \u2640 35 kg) \u00b7 15 bar muscle-ups, 30 double-unders, 15 thrusters (\u2642 60 kg / \u2640 40 kg). Time cap: 12 min',
+  'open 25.2': 'Herhaling van Open 22.3: 21 pull-ups, 42 double-unders, 21 thrusters (\u2642 42,5 kg / \u2640 30 kg) \u00b7 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (\u2642 52,5 kg / \u2640 35 kg) \u00b7 15 bar muscle-ups, 30 double-unders, 15 thrusters (\u2642 60 kg / \u2640 40 kg). Time cap: 12 min',
+  'open 22.3 / 25.2': 'Voor tijd: 21 pull-ups, 42 double-unders, 21 thrusters (\u2642 42,5 kg / \u2640 30 kg) \u00b7 18 chest-to-bar pull-ups, 36 double-unders, 18 thrusters (\u2642 52,5 kg / \u2640 35 kg) \u00b7 15 bar muscle-ups, 30 double-unders, 15 thrusters (\u2642 60 kg / \u2640 40 kg). Time cap: 12 min (22.3, in 2025 herhaald als 25.2)',
+  'open 24.1': 'Voor tijd: 21-15-9 per arm \u2014 21 dumbbell snatches (arm 1), 21 lateral burpees over de dumbbell, 21 dumbbell snatches (arm 2), 21 lateral burpees; daarna 15\u2019s en 9\u2019s (\u2642 22,5 kg / \u2640 15 kg). Time cap: 15 min',
+  'open workout 26.1': 'Voor tijd (piramide): 20 wall-ball shots, 18 box jump-overs, 30 wall-ball shots, 18 box jump-overs, 40 wall-ball shots, 18 medicine-ball box step-overs, 66 wall-ball shots, 18 medicine-ball box step-overs, 40 wall-ball shots, 18 box jump-overs, 30 wall-ball shots, 18 box jump-overs, 20 wall-ball shots (\u2642 9 kg / \u2640 6 kg, box \u2642 60 cm / \u2640 50 cm). Time cap: 12 min',
+  'open workout 26.2': '3 rondes voor tijd, per ronde zwaardere gymnastiek: 80 ft dumbbell overhead walking lunges, 20 alternating dumbbell snatches (\u2642 22,5 kg / \u2640 15 kg), 20 pull-ups \u2192 ronde 2: 20 chest-to-bar pull-ups \u2192 ronde 3: 20 ring muscle-ups. Time cap: 15 min',
+};
+const knownWodText = name => WOD_TEXTS[String(name || '').trim().toLowerCase()] || '';
+
 const results = [];
 const lifts = [];
 const warnings = [];
@@ -113,7 +133,7 @@ for (const r of rows) {
     continue;
   }
 
-  const res = { id: uid(), date, wodName: name, wodText: '', movements: [], type, timeDomain: '', scaled, notes };
+  const res = { id: uid(), date, wodName: name, wodText: knownWodText(name), movements: [], type, timeDomain: '', scaled, notes };
   if (type === 'time') Object.assign(res, parseTime(score));
   else if (type === 'amrap') Object.assign(res, parseRoundsReps(score));
   else if (type === 'load') res.kg = parseKg(score);
