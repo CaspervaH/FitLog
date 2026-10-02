@@ -1,13 +1,53 @@
 {
-  "generated": "2026-10-01T09:42:45.017Z",
+  "generated": "2026-10-02T10:39:37.768Z",
   "wods": [
+    {
+      "id": "260902",
+      "date": "2026-09-02",
+      "weekday": "woensdag",
+      "name": null,
+      "type": "amrap",
+      "text": "On a 10-minute clock, complete:\n50 burpee pull-ups\n75 kettlebell swings\nMax burpee pull-ups in the remaining time\nThe pull-up bar should be 6 inches above the fingertips with arms extended overhead. Your score is the number of burpee pull-ups completed.\n♀ 35-lb kettlebell\n♂ 53-lb kettlebell\nPost your reps to the comments.",
+      "movements": [
+        "pull-up",
+        "kettlebell swing",
+        "burpee"
+      ],
+      "timeDomain": "10 min",
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260903",
+      "date": "2026-09-03",
+      "weekday": "donderdag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "260904",
+      "date": "2026-09-04",
+      "weekday": "vrijdag",
+      "name": null,
+      "type": "time",
+      "text": "21-15-9* reps for time of:\nClean and jerks\nEcho bike calories\n*Women complete 15-12-9 Echo bike calories.\nThen, at 20 minutes:\nBuild to a challenging power clean and jerk\n♀ 65-lb barbell\n♂ 95-lb barbell",
+      "movements": [
+        "clean and jerk",
+        "power clean"
+      ],
+      "timeDomain": "20 min",
+      "source": "crossfit.com"
+    },
     {
       "id": "260905",
       "date": "2026-09-05",
       "weekday": "zaterdag",
       "name": null,
       "type": "time",
-      "text": "5 rounds for time of:  \n200-meter run  \n20 air squats  \n20 push-ups  \n20 lunges",
+      "text": "5 rounds for time of:\n200-meter run\n20 air squats\n20 push-ups\n20 lunges",
       "movements": [
         "push-up",
         "air squat",
@@ -47,7 +87,7 @@
       "weekday": "dinsdag",
       "name": null,
       "type": "time",
-      "text": "For time:  \n800-meter run  \n42 kettlebell swings  \n21 kettlebell goblet squats  \n30 kettlebell swings  \n15 kettlebell goblet squats  \n18 kettlebell swings  \n9 kettlebell goblet squats  \n800-meter run\n♀ 53-lb kettlebell  \n♂ 70-lb kettlebell",
+      "text": "For time:\n800-meter run\n42 kettlebell swings\n21 kettlebell goblet squats\n30 kettlebell swings\n15 kettlebell goblet squats\n18 kettlebell swings\n9 kettlebell goblet squats\n800-meter run\n♀ 53-lb kettlebell\n♂ 70-lb kettlebell",
       "movements": [
         "goblet squat",
         "kettlebell swing",
@@ -62,7 +102,7 @@
       "weekday": "woensdag",
       "name": null,
       "type": "load",
-      "text": "15-12-9 reps for load and time of:  \nHang power cleans  \nBar-facing burpees\nUse the same weight for all three sets.  \nAll hang power clean sets must be unbroken; if you drop the bar, start the set over.",
+      "text": "15-12-9 reps for load and time of:\nHang power cleans\nBar-facing burpees\nUse the same weight for all three sets.\nAll hang power clean sets must be unbroken; if you drop the bar, start the set over.",
       "movements": [
         "hang power clean",
         "bar-facing burpee",
@@ -86,9 +126,9 @@
       "id": "260911",
       "date": "2026-09-11",
       "weekday": "vrijdag",
-      "name": "Andi",
+      "name": null,
       "type": "time",
-      "text": "**Andi**\nFor time:  \n100 hang power snatches  \n100 push presses  \n100 sumo deadlift high pulls  \n100 front squats\n♀ 45-lb barbell  \n♂ 65-lb barbell",
+      "text": "Andi\nFor time:\n100 hang power snatches\n100 push presses\n100 sumo deadlift high pulls\n100 front squats\n♀ 45-lb barbell\n♂ 65-lb barbell",
       "movements": [
         "sumo deadlift high pull",
         "hang power snatch",
@@ -105,7 +145,7 @@
       "weekday": "zaterdag",
       "name": null,
       "type": "amrap",
-      "text": "Complete as many reps as possible in 12 minutes of:  \n2 wall walks  \n2 legless rope climbs\nAdd 1 wall walk every round.",
+      "text": "Complete as many reps as possible in 12 minutes of:\n2 wall walks\n2 legless rope climbs\nAdd 1 wall walk every round.",
       "movements": [
         "wall walk",
         "rope climb"
@@ -130,7 +170,7 @@
       "weekday": "maandag",
       "name": null,
       "type": "time",
-      "text": "On a 20-minute clock:\nFrom 0:00-10:00, for time:  \nRun 1,600 meters\n10:00-20:00:  \nBuild to a 5-rep-max bench press",
+      "text": "On a 20-minute clock:\nFrom 0:00-10:00, for time:\nRun 1,600 meters\n10:00-20:00:\nBuild to a 5-rep-max bench press",
       "movements": [
         "bench press",
         "run"
@@ -142,9 +182,9 @@
       "id": "260915",
       "date": "2026-09-15",
       "weekday": "dinsdag",
-      "name": "Service Cup Workout 2",
+      "name": null,
       "type": "amrap",
-      "text": "**Service Cup Workout 2**\nComplete as many reps as possible in 8 minutes of:  \n50-foot back rack lunges  \n25 pull-ups  \n50-foot front rack lunges  \n25 chest-to-bar pull-ups  \n50-foot overhead lunges  \nMax bar muscle-ups\n♀ 80-lb barbell  \n♂ 115-lb barbell",
+      "text": "Service Cup Workout 2\nComplete as many reps as possible in 8 minutes of:\n50-foot back rack lunges\n25 pull-ups\n50-foot front rack lunges\n25 chest-to-bar pull-ups\n50-foot overhead lunges\nMax bar muscle-ups\n♀ 80-lb barbell\n♂ 115-lb barbell",
       "movements": [
         "pull-up",
         "chest-to-bar pull-up",
@@ -158,9 +198,9 @@
       "id": "260916",
       "date": "2026-09-16",
       "weekday": "woensdag",
-      "name": "Service Cup Workout 3",
+      "name": null,
       "type": "time",
-      "text": "**Service Cup Workout 3**\nPart A  \nOn a 15-minute clock, for time:  \n10 shuttle runs  \n15 clean and jerks  \n10 shuttle runs  \n12 clean and jerks  \n10 shuttle runs  \n9 clean and jerks  \n10 shuttle runs  \n9 clean and jerks\n♀ 95-lb barbell  \n♂ 135-lb barbell\nPart B  \nAt 15 minutes, on a 3-minute clock:  \nBuild to a 1-rep-max clean and jerk",
+      "text": "Service Cup Workout 3\nPart A\nOn a 15-minute clock, for time:\n10 shuttle runs\n15 clean and jerks\n10 shuttle runs\n12 clean and jerks\n10 shuttle runs\n9 clean and jerks\n10 shuttle runs\n9 clean and jerks\nOne shuttle run is 25 feet down and 25 feet back.\n♀ 95-lb barbell\n♂ 135-lb barbell\nPart B\nAt 15 minutes, on a 3-minute clock:\nBuild to a 1-rep-max clean and jerk",
       "movements": [
         "clean and jerk",
         "run",
@@ -184,9 +224,9 @@
       "id": "260918",
       "date": "2026-09-18",
       "weekday": "vrijdag",
-      "name": "Service Cup Workout 1",
+      "name": null,
       "type": "time",
-      "text": "**Service Cup Workout 1**\nFor time:  \n50 wall-ball shots  \n50 box jump-overs  \n50 wall-ball shots  \n50 medicine-ball box step-overs  \n50 wall-ball shots  \n50 lateral burpee box jump-overs\nTime cap: 25 minutes\n♀ 14-lb medicine ball to a 10-foot target and a 20-inch box  \n♂ 20-lb medicine ball to a 10-foot target and a 24-inch box",
+      "text": "Service Cup Workout 1\nFor time:\n50 wall-ball shots\n50 box jump-overs\n50 wall-ball shots\n50 medicine-ball box step-overs\n50 wall-ball shots\n50 lateral burpee box jump-overs\nTime cap: 25 minutes\n♀ 14-lb medicine ball to a 10-foot target and a 20-inch box\n♂ 20-lb medicine ball to a 10-foot target and a 24-inch box",
       "movements": [
         "medicine-ball box step-over",
         "lateral burpee box jump-over",
@@ -203,9 +243,9 @@
       "id": "260919",
       "date": "2026-09-19",
       "weekday": "zaterdag",
-      "name": "Service Cup Workout 4",
+      "name": null,
       "type": "time",
-      "text": "**Service Cup Workout 4**\nFor time:  \n100 double-unders  \n50 alternating dumbbell snatches  \n100 double-unders\nTime cap: 5 minutes\n♀ 35-lb dumbbell  \n♂ 50-lb dumbbell",
+      "text": "Service Cup Workout 4\nFor time:\n100 double-unders\n50 alternating dumbbell snatches\n100 double-unders\nTime cap: 5 minutes\n♀ 35-lb dumbbell\n♂ 50-lb dumbbell",
       "movements": [
         "double-under",
         "snatch"
@@ -228,9 +268,9 @@
       "id": "260921",
       "date": "2026-09-21",
       "weekday": "maandag",
-      "name": "Grace",
+      "name": null,
       "type": "time",
-      "text": "**Grace**\nFor time:  \n30 clean and jerks\n♀ 95-lb barbell  \n♂ 135-lb barbell",
+      "text": "Grace\nFor time:\n30 clean and jerks\n♀ 95-lb barbell\n♂ 135-lb barbell",
       "movements": [
         "clean and jerk"
       ],
@@ -243,7 +283,7 @@
       "weekday": "dinsdag",
       "name": null,
       "type": "time",
-      "text": "3 rounds for time of:  \n15 thrusters  \n15 pull-ups  \n400-meter run\n♀ 65-lb barbell  \n♂ 95-lb barbell",
+      "text": "3 rounds for time of:\n15 thrusters\n15 pull-ups\n400-meter run\n♀ 65-lb barbell\n♂ 95-lb barbell",
       "movements": [
         "pull-up",
         "thruster",
@@ -258,11 +298,12 @@
       "weekday": "woensdag",
       "name": null,
       "type": "reps",
-      "text": "On a 15-minute clock, complete:  \n100 burpees*  \nMax shuttle box jump-overs in the remaining time\n*Every minute, starting at 0:00, complete 4 shuttle box jump-overs.\n♀ 20-inch box  \n♂ 24-inch box",
+      "text": "On a 15-minute clock, complete:\n100 burpees*\nMax shuttle box jump-overs in the remaining time\n*Every minute, starting at 0:00, complete 4 shuttle box jump-overs.\nFor the shuttle box jump-overs, mark two lines 10 feet apart and place the box in the middle. To complete 1 rep, start standing behind the first marked line, run to the box, jump over the box, run past the second marked line, and make a two-hand and two-foot touch behind the line before starting the next rep.\nIf you have a weight vest (14/20 lb), use it.\n♀ 20-inch box\n♂ 24-inch box",
       "movements": [
         "shuttle box jump-over",
         "box jump-over",
         "box jump",
+        "run",
         "burpee"
       ],
       "timeDomain": "15 min",
@@ -285,7 +326,7 @@
       "weekday": "vrijdag",
       "name": null,
       "type": "amrap",
-      "text": "Complete as many rounds and reps as possible in 20 minutes of:  \n30-foot handstand walk  \n250-meter row  \n3 L-sit muscle-ups  \n250-meter row",
+      "text": "Complete as many rounds and reps as possible in 20 minutes of:\n30-foot handstand walk\n250-meter row\n3 L-sit muscle-ups\n250-meter row\nThe L-sit muscle-up starts with straight legs out in front of the body at 90 degrees with the heels on the floor and arms at full extension overhead. The rep finishes when the arms are fully locked out with extension of the elbow.",
       "movements": [
         "handstand walk",
         "muscle-up",
@@ -300,7 +341,7 @@
       "weekday": "zaterdag",
       "name": null,
       "type": "load",
-      "text": "7 sets for load of:  \n1 hang power snatch  \n1 overhead squat  \n1 hang squat snatch\nIncrease load each set.\n**Post-Workout Challenge**\n3 sets:  \n1 hang power snatch  \n1 overhead squat  \n1 hang squat snatch",
+      "text": "7 sets for load of:\n1 hang power snatch\n1 overhead squat\n1 hang squat snatch\nIncrease load each set.\nPost-Workout Challenge\n3 sets:\n1 hang power snatch\n1 overhead squat\n1 hang squat snatch\nChoose your own load, and make one attempt.\nHands must stay on the bar; no breaking between sets.",
       "movements": [
         "hang power snatch",
         "hang squat snatch",
@@ -326,7 +367,7 @@
       "weekday": "maandag",
       "name": null,
       "type": "time",
-      "text": "Every 6 minutes for 6 rounds:  \n800-meter run\nYour score is the total time for all six runs added together.",
+      "text": "Every 6 minutes for 6 rounds:\n800-meter run\nYour score is the total time for all six runs added together.",
       "movements": [
         "run"
       ],
@@ -339,7 +380,7 @@
       "weekday": "dinsdag",
       "name": null,
       "type": "time",
-      "text": "7 rounds for time of:  \n7 thrusters  \n7 sumo deadlift high pulls  \n7 handstand push-ups\n♀ 65-lb barbell  \n♂ 95-lb barbell",
+      "text": "7 rounds for time of:\n7 thrusters\n7 sumo deadlift high pulls\n7 handstand push-ups\n♀ 65-lb barbell\n♂ 95-lb barbell",
       "movements": [
         "sumo deadlift high pull",
         "handstand push-up",
@@ -354,9 +395,9 @@
       "id": "260930",
       "date": "2026-09-30",
       "weekday": "woensdag",
-      "name": "Olympic Total",
+      "name": null,
       "type": "load",
-      "text": "**Olympic Total**\nSnatch 1-1-1-1-1 reps  \nClean and jerk 1-1-1-1-1 reps",
+      "text": "Olympic Total\nSnatch 1-1-1-1-1 reps\nClean and jerk 1-1-1-1-1 reps",
       "movements": [
         "clean and jerk",
         "snatch"
@@ -372,6 +413,20 @@
       "type": "rest",
       "text": "Rest day",
       "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "261002",
+      "date": "2026-10-02",
+      "weekday": "vrijdag",
+      "name": null,
+      "type": "time",
+      "text": "21-15-9 reps for time of:\nStrict pull-ups\nOverhead squats\n♀ 95-lb barbell\n♂ 135-lb barbell",
+      "movements": [
+        "pull-up",
+        "overhead squat"
+      ],
       "timeDomain": null,
       "source": "crossfit.com"
     }
