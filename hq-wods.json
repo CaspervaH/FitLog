@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-03T09:58:56.023Z",
+  "generated": "2026-10-04T10:42:28.910Z",
   "wods": [
     {
       "id": "260902",
@@ -437,6 +437,17 @@
       "name": null,
       "type": "time",
       "text": "For time:\n250-foot sandbag bear hug carry\n50-second L-sit hold\n200-foot sandbag bear hug carry\n40-second L-sit hold\n150-foot sandbag bear hug carry\n30-second L-sit hold\n100-foot sandbag bear hug carry\n20-second L-sit hold\n50-foot sandbag bear hug carry\n10-second L-sit hold\n♀ 100-lb sandbag\n♂ 150-lb sandbag",
+      "movements": [],
+      "timeDomain": null,
+      "source": "crossfit.com"
+    },
+    {
+      "id": "261004",
+      "date": "2026-10-04",
+      "weekday": "zondag",
+      "name": null,
+      "type": "rest",
+      "text": "Rest day",
       "movements": [],
       "timeDomain": null,
       "source": "crossfit.com"
