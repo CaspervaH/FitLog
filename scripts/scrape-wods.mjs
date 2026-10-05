@@ -183,7 +183,13 @@ async function main() {
     } catch { /* corrupt bestand: opnieuw opbouwen */ }
   }
   const byId = new Map(existing.wods.map(w => [w.id, w]));
-  for (const d of parsed) byId.set(d.id, d);
+  // Box-WOD's (handmatig toegevoegd, bv. APEX) blijven staan; crossfit.com
+  // overschrijft alleen de eigen HQ-items.
+  for (const d of parsed) {
+    const cur = byId.get(d.id);
+    if (cur && cur.source && cur.source !== 'crossfit.com') continue;
+    byId.set(d.id, d);
+  }
   const merged = [...byId.values()].sort((a, b) => a.date < b.date ? -1 : 1);
 
   const out = { generated: new Date().toISOString(), wods: merged };

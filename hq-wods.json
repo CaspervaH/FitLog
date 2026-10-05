@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04T10:42:28.910Z",
+  "generated": "2026-10-05T10:24:36.372Z",
   "wods": [
     {
       "id": "260902",
@@ -451,6 +451,22 @@
       "movements": [],
       "timeDomain": null,
       "source": "crossfit.com"
+    },
+    {
+      "id": "261005",
+      "date": "2026-10-05",
+      "weekday": "maandag",
+      "name": null,
+      "type": "time",
+      "text": "**APEX Training Doetinchem**\nStrength — EMOM 12:00\n1. 6-8 DB Z-presses\n2. 3-5 Strict Ring Pull-ups met 2 sec pause bovenaan\n\nWOD — For time (time cap 17:00)\n50-40-30-20-10 reps van:\n- Wall-Balls 9/6 kg\n- Double-Unders\n- AbMat Sit-Ups\n\nRX: SC ×3 Single-Unders – 6/4 kg; bij <3 strict reps: variant met voetondersteuning; sterker: extra load (DB, med ball, weight vest).\nScaling: dubbele reps Single-Unders; zonder springen: 15-12-9-6-3 Echo Bike calories.",
+      "movements": [
+        "wall ball",
+        "double-under",
+        "sit-up",
+        "pull-up"
+      ],
+      "timeDomain": "17 min",
+      "source": "APEX Training Doetinchem"
     }
   ]
 }
