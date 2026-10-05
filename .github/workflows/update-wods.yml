@@ -2,7 +2,12 @@ name: Update HQ WODs
 
 on:
   schedule:
-    - cron: '30 4 * * *'  # dagelijks 04:30 UTC (~06:30 NL-tijd, na publicatie HQ-WOD)
+    # GitHub geplande runs lopen vaak ~1-2 uur vertraagd; crossfit.com publiceert
+    # de WOD doorgaans vroeg in de ochtend (US-tijd). Daarom twee momenten: de
+    # vroege run vangt late publicatie op, de late run is de vangnet-run.
+    - cron: '0 4 * * *'
+    - cron: '30 4 * * *'
+    - cron: '0 10 * * *'
   workflow_dispatch:
 
 permissions:
