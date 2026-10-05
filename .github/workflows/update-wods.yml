@@ -1,8 +1,8 @@
 name: Update HQ WODs
 
+# Dagelijkse crossfit.com-scrape staat uit: de box programmeert zelf (Virtuagym)
+# en gebruikt crossfit.com niet meer. Handmatig draaien kan via workflow_dispatch.
 on:
-  schedule:
-    - cron: '30 4 * * *'  # dagelijks 04:30 UTC (~06:30 NL-tijd, na publicatie HQ-WOD)
   workflow_dispatch:
 
 permissions:
