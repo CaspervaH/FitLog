@@ -370,6 +370,42 @@ function similarHtml(w, dateISO){
 
 function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
+// Bewegingswoordenboek voor handmatig ingevoerde WOD's (zelfde lijst als
+// scripts/scrape-wods.mjs): langste eerst, zodat 'clean and jerk' niet ook
+// als losse 'clean' wordt getagd.
+const MOVEMENT_PATTERNS = [
+  'sumo deadlift high pull', 'hang power clean', 'hang power snatch', 'hang squat snatch',
+  'clean and jerk', 'medicine-ball box step-over', 'lateral burpee box jump-over',
+  'shuttle box jump-over', 'bar-facing burpee', 'wall-ball shot', 'wall walk',
+  'wall ball', 'box jump-over', 'box step-over', 'box jump', 'rope climb',
+  'handstand push-up', 'handstand walk', 'pike push-up', 'push-up', 'pull-up',
+  'chest-to-bar pull-up', 'ring row', 'ring dip', 'muscle-up', 'double-under',
+  'single-under', 'sit-up', 'back squat', 'front squat', 'overhead squat',
+  'air squat', 'goblet squat', 'pistol', 'bench press', 'push press', 'push jerk',
+  'split jerk', 'power clean', 'power snatch', 'squat clean', 'hang clean',
+  'deadlift', 'kettlebell swing', 'thruster', 'lunge', 'run', 'row', 'burpee',
+  'snatch', 'clean', 'jerk', 'shuttle run', 'bear crawl',
+];
+
+// Trekt bewegingen uit een WOD-tekst. Langste naam eerst; gevonden termen
+// worden gemaskeerd zodat 'clean and jerk' niet ook als losse 'clean' telt,
+// terwijl een aparte 'power snatch' in dezelfde tekst wel blijft staan.
+// Spaties en koppeltekens ('wall ball' / 'Wall-Balls') zijn uitwisselbaar.
+function detectMovementsFromText(text){
+  let masked = String(text || '');
+  if(!masked.trim()) return [];
+  const reFor = pat => new RegExp('\\b' + escapeRe(pat).replace(/[-\s]/g, '[-\\\s]') + '(?:es|s)?\\b', 'gi');
+  const found = [];
+  for(const pat of [...MOVEMENT_PATTERNS].sort((a,b) => b.length - a.length)){
+    const re = reFor(pat);
+    if(re.test(masked)){
+      found.push(pat);
+      masked = masked.replace(re, m => ' '.repeat(m.length));
+    }
+  }
+  return found;
+}
+
 function toKg(val, unit){
   let v = parseFloat(String(val).replace(',', '.'));
   if(unit === 'lb') v = v * 0.45359237;
@@ -524,8 +560,9 @@ function readForm(){
   const nameEl = document.getElementById('wodName');
   const name = nameEl.value.trim() || 'WOD ' + fmtShort(state.date);
   const text = (document.getElementById('wodText').value || '').trim();
-  const movements = (document.getElementById('wodMovs') ? document.getElementById('wodMovs').value : '')
+  const hqMovs = (document.getElementById('wodMovs') ? document.getElementById('wodMovs').value : '')
     .split(',').map(s => s.trim()).filter(Boolean);
+  const movements = hqMovs.length ? hqMovs : detectMovementsFromText(text);
   const td = document.getElementById('wodTd') ? document.getElementById('wodTd').value : '';
   const lvls = document.querySelectorAll('#lvlToggle button.on');
   const scaled = lvls.length ? lvls[0].dataset.lvl === 'sc' : false;
